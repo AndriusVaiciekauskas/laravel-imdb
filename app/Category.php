@@ -11,4 +11,9 @@ class Category extends Model
         'description',
         'user_id'
     ];
+
+    public function movies()
+    {
+        return $this->hasMany('App\Movie');
+    }
 }

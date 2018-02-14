@@ -24,6 +24,15 @@ Route::patch('/categories/{id}', 'CategoriesController@update')->name('categorie
 Route::get('/categories/{id}', 'CategoriesController@show')->name('categories.show');
 Route::delete('/categories/{id}', 'CategoriesController@destroy')->name('categories.destroy');
 
+// movies
+Route::get('/movies', 'MoviesController@index')->name('movies');
+Route::get('/movies/create', 'MoviesController@create')->name('movies.create');
+Route::post('/movies/store', 'MoviesController@store')->name('movies.store');
+Route::get('/movies/{id}/edit', 'MoviesController@edit')->name('movies.edit');
+Route::patch('/movies/{id}', 'MoviesController@update')->name('movies.update');
+Route::get('/movies/{id}', 'MoviesController@show')->name('movies.show');
+Route::delete('/movies/{id}', 'MoviesController@destroy')->name('movies.destroy');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
