@@ -13,10 +13,8 @@
                         @endif
                     </div>
                     <div class="col-sm-8">
-                        <h2>{{ $movie->name }} <small>({{ $movie->year }})</small></h2>
-                        <p><b>Category:</b> <a href="{{ route('categories.show', $movie->category->id) }}">{{ $movie->category->name }}</a></p>
-                        <p><b>Description:</b></p>
-                        <p>{{ $movie->description }}</p>
+                        <h2>{{ $actor->name }}</h2>
+                        <p><b>Date of birth:</b> {{ $actor->birthday }}</p>
                         <h4>Photos</h4>
                         <div class="row">
                             @foreach($images as $image)
@@ -29,14 +27,13 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <hr>
-                        <h3 class="mt-4">Cast</h3>
+                        <h3 class="mt-4">Movies</h3>
                         <ul class="list-group text-dark my-4">
-                            @foreach($movie->actors as $actor)
+                            @foreach($actor->movies as $movie)
                                 <li class="list-group-item">
-                                    <a href="{{ route('actors.show', $actor->id) }}">
-                                        <img id="actor-img" src="{{ asset('uploadedimages/' . $actor->images()->first()->filename) }}">
-                                        {{ $actor->name }}
+                                    <a href="{{ route('movies.show', $movie->id) }}">
+                                        <img id="movie-img" src="{{ asset('uploadedimages/' . $movie->images()->first()->filename) }}">
+                                        {{ $movie->name }}
                                     </a>
                                 </li>
                             @endforeach

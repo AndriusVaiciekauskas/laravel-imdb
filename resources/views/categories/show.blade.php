@@ -8,6 +8,13 @@
                     <div class="card-header">{{ $category->name }}</div>
                     <div class="card-body">
                         <p class="card-text">{{ $category->description }}</p>
+                        <hr>
+                        <h4 class="mt-4">Movies in category</h4>
+                        <ul class="list-group">
+                            @foreach($category->movies as $movie)
+                                <li class="list-group-item"><a href="{{ route('movies.show', $movie->id) }}">{{ $movie->name }}</a></li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

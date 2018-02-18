@@ -9,34 +9,30 @@
                         {{ session('errors') }}
                     </div>
                 @endif
-                @if(isset($movies))
+                @if(isset($actors))
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Movie</th>
-                            <th>Description</th>
-                            <th>Year</th>
-                            <th>Rating</th>
-                            <th>Category</th>
+                            <th>Name</th>
+                            <th>Birthday</th>
+                            <th>Deathday</th>
                             @if(Auth::user())
                                 <th>Action</th>
                             @endif
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($movies as $movie)
+                        @foreach($actors as $actor)
                             <tr>
-                                <td><a href="{{ route('movies.show', $movie->id) }}">{{ $movie->name }}</a></td>
-                                <td>{{ $movie->description }}</td>
-                                <td>{{ $movie->year }}</td>
-                                <td>{{ $movie->rating }}</td>
-                                <td>{{ $movie->category->name }}</td>
+                                <td><a href="{{ route('actors.show', $actor->id) }}">{{ $actor->name }}</a></td>
+                                <td>{{ $actor->birthday }}</td>
+                                <td>{{ $actor->deathday }}</td>
                                 @if(Auth::user())
                                     <td>
-                                        <form method="post" action="{{ route('movies.destroy', $movie->id) }}">
+                                        <form method="post" action="{{ route('actors.destroy', $actor->id) }}">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
-                                            <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ route('actors.edit', $actor->id) }}" class="btn btn-info">Edit</a>
                                             <input type="submit" class="btn btn-danger" value="Delete">
                                         </form>
                                     </td>

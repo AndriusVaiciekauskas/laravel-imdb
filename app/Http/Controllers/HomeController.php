@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Movie;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $movies = Movie::orderBy('id', 'desc')->take(6)->get();
+        $images = [];
+        foreach ($movies as $movie) {
+            $image = $movie->images()->first();
+            array_push($images, $image['filename']);
+        }
+        return view('welcome', compact('images', 'movies'));
     }
 }

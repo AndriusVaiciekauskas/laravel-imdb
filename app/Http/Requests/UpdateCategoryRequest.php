@@ -13,7 +13,9 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (Auth::user()) {
+            return true;
+        }
     }
 
     /**

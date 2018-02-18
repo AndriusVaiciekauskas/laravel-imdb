@@ -19,4 +19,14 @@ class Movie extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class);
+    }
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imagable');
+    }
 }

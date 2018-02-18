@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class StoreMovieRequest extends FormRequest
+class StoreFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +17,7 @@ class StoreMovieRequest extends FormRequest
         if (Auth::user()) {
             return true;
         }
+
     }
 
     /**
@@ -26,11 +28,7 @@ class StoreMovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
-            'year' => 'required|integer|min:1900|max:2100',
-            'rating' => 'required',
-            'category_id' => 'required'
+            'image' => 'required|image'
         ];
     }
 }

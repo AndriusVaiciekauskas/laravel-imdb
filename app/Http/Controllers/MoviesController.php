@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actor;
 use App\Category;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
@@ -20,13 +21,14 @@ class MoviesController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('movies.create', compact('categories'));
+        $actors = Actor::All();
+        return view('movies.create', compact('categories', 'actors'));
     }
 
     public function store(StoreMovieRequest $request)
     {
-        Movie::create($request->except('_token') + ['user_id' => Auth::user()->id]);
-
+        $movie = Movie::create($request->except('_token', 'actors') + ['user_id' => Auth::user()->id]);
+        $movie->actors()->attach($request->input('actors'));
         return redirect()->route('movies');
     }
 
@@ -34,12 +36,16 @@ class MoviesController extends Controller
     {
         $movie = Movie::findOrFail($id);
         $categories = Category::all();
-        return view('movies.edit', compact('movie', 'categories'));
+        $actors = Actor::All();
+        return view('movies.edit', compact('movie', 'categories', 'actors'));
     }
 
     public function update(UpdateMovieRequest $request, $id)
     {
-        Movie::findOrFail($id)->update($request->except('_token') + ['user_id' => Auth::user()->id]);
+        $movie = Movie::findOrFail($id);
+        $movie->update($request->except('_token') + ['user_id' => Auth::user()->id]);
+        $movie->actors()->detach($request->input('actors'));
+        $movie->actors()->attach($request->input('actors'));
 
         return redirect()->route('movies');
     }
@@ -47,8 +53,9 @@ class MoviesController extends Controller
     public function show($id)
     {
         $movie = Movie::findOrFail($id);
-
-        return view('movies.show', compact('movie'));
+        $image = $movie->images()->first();
+        $images = $movie->images()->limit(4)->get();
+        return view('movies.show', compact('movie', 'image', 'images'));
     }
 
     public function destroy($id)

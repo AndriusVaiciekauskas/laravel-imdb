@@ -27,3 +27,11 @@
         @endforeach
     </select>
 </div>
+<div class="form-group">
+    <label>Actors</label>
+    <select multiple class="form-control" name="actors[]">
+        @foreach($actors as $actor)
+            <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+        @endforeach
+    </select>
+</div>
