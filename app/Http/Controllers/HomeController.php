@@ -25,11 +25,6 @@ class HomeController extends Controller
     public function index()
     {
         $movies = Movie::orderBy('id', 'desc')->take(6)->get();
-        $images = [];
-        foreach ($movies as $movie) {
-            $image = $movie->images()->first();
-            array_push($images, $image['filename']);
-        }
-        return view('welcome', compact('images', 'movies'));
+        return view('welcome', compact('movies'));
     }
 }

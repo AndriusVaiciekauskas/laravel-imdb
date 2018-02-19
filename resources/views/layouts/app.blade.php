@@ -49,7 +49,6 @@
                                     <a class="dropdown-item" href="{{ route('categories') }}">Categories</a>
                                     <a class="dropdown-item" href="{{ route('movies') }}">Movies</a>
                                     <a class="dropdown-item" href="{{ route('actors') }}">Actors</a>
-                                    <a class="dropdown-item" href="{{ route('images') }}">Images</a>
                                 </div>
                             </li>
                             @endif

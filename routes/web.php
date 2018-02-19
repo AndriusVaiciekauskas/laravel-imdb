@@ -14,12 +14,18 @@
 Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => ['auth']], function () {
+    // users
+    Route::get('/users', 'UsersController@index')->name('users')->middleware('admin');
+    Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit')->middleware('admin');
+    Route::patch('/users/{id}', 'UsersController@update')->name('users.update')->middleware('admin');
+    Route::delete('/users/{id}', 'UsersController@destroy')->name('users.destroy')->middleware('admin');
+
     //categories
     Route::get('/categories/create', 'CategoriesController@create')->name('categories.create')->middleware('admin');
     Route::post('/categories/store', 'CategoriesController@store')->name('categories.store');
     Route::get('/categories/{id}/edit', 'CategoriesController@edit')->name('categories.edit');
     Route::patch('/categories/{id}', 'CategoriesController@update')->name('categories.update');
-    Route::delete('/categories/{id}', 'CategoriesController@destroy')->name('categories.destroy')->middleware('admin');;
+    Route::delete('/categories/{id}', 'CategoriesController@destroy')->name('categories.destroy')->middleware('admin');
 
     //movies
     Route::get('/movies/create', 'MoviesController@create')->name('movies.create');
@@ -36,8 +42,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/actors/{id}', 'ActorsController@destroy')->name('actors.destroy')->middleware('admin');;
 
     //images
-    Route::get('/images', 'ImagesController@index')->name('images');
-    Route::post('/images/store', 'ImagesController@store')->name('images.store');
+    Route::post('/movies/store/{id}', 'ImagesController@storeMovieImage')->name('store.movie.image');
+    Route::post('/actors/store/{id}', 'ImagesController@storeActorImage')->name('store.actor.image');
+    Route::delete('/images/{id}', 'ImagesController@destroy')->name('delete.image');
 });
 
 // categories

@@ -10037,3 +10037,9 @@ a:hover {
   text-decoration: none;
 }
 
+#delete-button {
+  position: absolute;
+  top: 2px;
+  right: 17px;
+}
+

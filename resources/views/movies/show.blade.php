@@ -7,12 +7,24 @@
                 <div class="row mt-4">
                     <div class="col-sm-4">
                         @if(isset($image))
-                            <img class="img-fluid" img-fluid src="{{ asset('uploadedimages/' . $image->filename) }}" alt="actor image">
+                            <img class="img-fluid" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
                         @else
                             <img class="img-fluid" img-fluid src="http://suiteapp.com/c.3857091/shopflow-1-03-0/img/no_image_available.jpeg" alt="actor image">
                         @endif
                     </div>
                     <div class="col-sm-8">
+                        @if(Auth::user() !== null && Auth::user()->role == 'Admin')
+                            <form class="form-inline" id="actor_form" method="post" action="{{ route('store.movie.image', $movie->id) }}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="form-group mt-3">
+                                    @include('movies.partials.errors', ['name' => 'image'])
+                                    <input type="file" class="form-control-file" name="image">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="Upload">
+                                </div>
+                            </form>
+                        @endif
                         <h2>{{ $movie->name }} <small>({{ $movie->year }})</small></h2>
                         <p><b>Category:</b> <a href="{{ route('categories.show', $movie->category->id) }}">{{ $movie->category->name }}</a></p>
                         <p><b>Description:</b></p>
@@ -21,7 +33,14 @@
                         <div class="row">
                             @foreach($images as $image)
                                 <div class="col-sm-3">
-                                    <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('uploadedimages/' . $image->filename) }}" alt="actor image">
+                                    <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
+                                    @if(Auth::user() !== null && Auth::user()->role == 'Admin')
+                                        <form action="{{ route('delete.image', $image->id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <input type="submit" value="X" class="btn-sm btn-danger" id="delete-button">
+                                        </form>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
@@ -35,7 +54,9 @@
                             @foreach($movie->actors as $actor)
                                 <li class="list-group-item">
                                     <a href="{{ route('actors.show', $actor->id) }}">
-                                        <img id="actor-img" src="{{ asset('uploadedimages/' . $actor->images()->first()->filename) }}">
+                                        @if(isset($actor->images()->first()->filename))
+                                            <img id="actor-img" src="{{ asset('storage/images/' . $actor->images()->first()->filename) }}">
+                                        @endif
                                         {{ $actor->name }}
                                     </a>
                                 </li>

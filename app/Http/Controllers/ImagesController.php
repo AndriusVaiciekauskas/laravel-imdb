@@ -13,18 +13,29 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class ImagesController extends Controller
 {
-    public function index()
+    public function storeMovieImage(StoreFileRequest $request, $id)
     {
-        $actors = Actor::all();
-        $movies = Movie::all();
-        return view('images.index', compact('actors', 'movies'));
+        $movie = Movie::findOrFail($id);
+        $result = $request->file('image')->storePublicly('public/images');
+        $file_name = basename($result);
+        $movie->images()->create(['user_id' => Auth::user()->id, 'filename' => $file_name]);
+        return back();
     }
 
-    public function store(StoreFileRequest $request)
+    public function storeActorImage(StoreFileRequest $request, $id)
     {
-        $imageName = date('Y_m_d_H_i_s') . $request->image->getClientOriginalName();
-        $request->image->move(public_path('/uploadedimages'), $imageName);
-        Image::create($request->except('_token', 'image') + ['user_id' => Auth::user()->id, 'filename' => $imageName]);
-        return back()->with('success', 'Image uploaded!');
+        $actor = Actor::findOrFail($id);
+        $result = $request->file('image')->storePublicly('public/images');
+        $file_name = basename($result);
+        $actor->images()->create(['user_id' => Auth::user()->id, 'filename' => $file_name]);
+        return back();
+    }
+
+    public function destroy($id)
+    {
+        $image = Image::findOrFail($id);
+        $image->delete();
+        Storage::delete('public/images/' . $image->filename);
+        return back();
     }
 }

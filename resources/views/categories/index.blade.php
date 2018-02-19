@@ -15,7 +15,7 @@
                         <tr>
                             <th>Category</th>
                             <th>Description</th>
-                            @if (Auth::user())
+                            @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                             <th>Actions</th>
                             @endif
                         </tr>
@@ -25,7 +25,7 @@
                             <tr id="category-row">
                                 <td><a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a></td>
                                 <td>{{ $category->description }}</td>
-                                @if (Auth::user())
+                                @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                 <td>
                                     <form method="post" action="{{ route('categories.destroy', $category->id) }}">
                                         {{ csrf_field() }}

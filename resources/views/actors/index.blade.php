@@ -16,7 +16,7 @@
                             <th>Name</th>
                             <th>Birthday</th>
                             <th>Deathday</th>
-                            @if(Auth::user())
+                            @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                 <th>Action</th>
                             @endif
                         </tr>
@@ -24,10 +24,17 @@
                     <tbody>
                         @foreach($actors as $actor)
                             <tr>
-                                <td><a href="{{ route('actors.show', $actor->id) }}">{{ $actor->name }}</a></td>
+                                <td>
+                                    <a href="{{ route('actors.show', $actor->id) }}">
+                                        @if(isset($actor->images()->first()->filename))
+                                            <img id="actor-img" src="{{ asset('storage/images/' . $actor->images()->first()->filename) }}">
+                                        @endif
+                                        {{ $actor->name }}
+                                    </a>
+                                </td>
                                 <td>{{ $actor->birthday }}</td>
                                 <td>{{ $actor->deathday }}</td>
-                                @if(Auth::user())
+                                @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                     <td>
                                         <form method="post" action="{{ route('actors.destroy', $actor->id) }}">
                                             {{ csrf_field() }}
