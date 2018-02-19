@@ -42,6 +42,10 @@
                                             {{ method_field('DELETE') }}
                                             <input type="submit" value="X" class="btn-sm btn-danger" id="delete-button">
                                         </form>
+                                            <form action="{{ route('featured.image', ['id' => $image->id, 'actor_id' => $actor->id]) }}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="submit" value="F" class="btn-sm btn-success" id="featured-image">
+                                            </form>
                                     @endif
                                 </div>
                             @endforeach

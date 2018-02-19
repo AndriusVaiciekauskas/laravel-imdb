@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //images
     Route::post('/movies/store/{id}', 'ImagesController@storeMovieImage')->name('store.movie.image');
+    Route::post('/featured', 'ImagesController@make_featured')->name('featured.image');
     Route::post('/actors/store/{id}', 'ImagesController@storeActorImage')->name('store.actor.image');
     Route::delete('/images/{id}', 'ImagesController@destroy')->name('delete.image');
 });

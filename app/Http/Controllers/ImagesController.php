@@ -38,4 +38,10 @@ class ImagesController extends Controller
         Storage::delete('public/images/' . $image->filename);
         return back();
     }
+
+    public function make_featured($id, $actor_id)
+    {
+        $image = Image::findOrFail($id);
+        $featured = Image::where('featured', true)->where('imagable_id', $actor_id);
+    }
 }
