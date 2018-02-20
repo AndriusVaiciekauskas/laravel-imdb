@@ -53,7 +53,7 @@ class MoviesController extends Controller
     public function show($id)
     {
         $movie = Movie::findOrFail($id);
-        $image = $movie->images()->first();
+        $image = $movie->images()->where('featured', 1)->first();
         $images = $movie->images()->limit(4)->get();
         return view('movies.show', compact('movie', 'image', 'images'));
     }

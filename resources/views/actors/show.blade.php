@@ -6,11 +6,7 @@
             <div class="col-sm-10 mx-auto bg-dark text-white">
                 <div class="row mt-4">
                     <div class="col-sm-4">
-                        @if(isset($image))
-                            <img class="img-fluid" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
-                        @else
-                            <img class="img-fluid" img-fluid src="http://suiteapp.com/c.3857091/shopflow-1-03-0/img/no_image_available.jpeg" alt="actor image">
-                        @endif
+                        <img class="img-fluid" img-fluid src="{{ $actor->featured_image }}" alt="actor image">
                     </div>
                     <div class="col-sm-8">
                         <div>
@@ -42,10 +38,12 @@
                                             {{ method_field('DELETE') }}
                                             <input type="submit" value="X" class="btn-sm btn-danger" id="delete-button">
                                         </form>
-                                            <form action="{{ route('featured.image', ['id' => $image->id, 'actor_id' => $actor->id]) }}" method="post">
-                                                {{ csrf_field() }}
-                                                <input type="submit" value="F" class="btn-sm btn-success" id="featured-image">
-                                            </form>
+
+                                        <form action="{{ route('actors.featured', $image->id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <input type="submit" value="F" class="btn-sm btn-success" id="featured-image">
+                                        </form>
                                     @endif
                                 </div>
                             @endforeach

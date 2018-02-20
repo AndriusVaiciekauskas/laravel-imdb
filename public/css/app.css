@@ -10041,5 +10041,21 @@ a:hover {
   position: absolute;
   top: 2px;
   right: 17px;
+  opacity: .7;
+}
+
+#delete-button:hover {
+  opacity: 1;
+}
+
+#featured-image {
+  position: absolute;
+  bottom: 2px;
+  right: 17px;
+  opacity: .7;
+}
+
+#featured-image:hover {
+  opacity: 1;
 }
 

@@ -52,4 +52,18 @@ a:hover {
   position: absolute;
   top: 2px;
   right: 17px;
+  opacity: .7;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+#featured-image {
+  position: absolute;
+  bottom: 2px;
+  right: 17px;
+  opacity: .7;
+  &:hover {
+    opacity: 1;
+  }
 }

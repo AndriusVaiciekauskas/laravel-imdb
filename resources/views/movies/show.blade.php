@@ -6,11 +6,7 @@
             <div class="col-sm-10 mx-auto bg-dark text-white">
                 <div class="row mt-4">
                     <div class="col-sm-4">
-                        @if(isset($image))
-                            <img class="img-fluid" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
-                        @else
-                            <img class="img-fluid" img-fluid src="http://suiteapp.com/c.3857091/shopflow-1-03-0/img/no_image_available.jpeg" alt="actor image">
-                        @endif
+                        <img class="img-fluid" src="{{ $movie->featured_image }}" alt="actor image">
                     </div>
                     <div class="col-sm-8">
                         @if(Auth::user() !== null && Auth::user()->role == 'Admin')
@@ -35,10 +31,16 @@
                                 <div class="col-sm-3">
                                     <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                                        <form action="{{ route('delete.image', $image->id) }}" method="post">
+                                        <form action="{{ route('delete.image.movie', $image->id) }}" method="post">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <input type="submit" value="X" class="btn-sm btn-danger" id="delete-button">
+                                        </form>
+
+                                        <form action="{{ route('movies.featured', $image->id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <input type="submit" value="F" class="btn-sm btn-success" id="featured-image">
                                         </form>
                                     @endif
                                 </div>

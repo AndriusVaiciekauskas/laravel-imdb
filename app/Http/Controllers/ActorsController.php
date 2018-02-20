@@ -51,7 +51,7 @@ class ActorsController extends Controller
     public function show($id)
     {
         $actor = Actor::findOrFail($id);
-        $image = $actor->images->first();
+        $image = $actor->images->where('featured', 1)->first();
         $images = $actor->images()->limit(4)->get();
         $movie_images = $actor->movies();
         return view('actors.show', compact('actor', 'image', 'images', 'movie_images'));

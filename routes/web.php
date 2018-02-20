@@ -41,11 +41,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/actors/{id}', 'ActorsController@update')->name('actors.update');
     Route::delete('/actors/{id}', 'ActorsController@destroy')->name('actors.destroy')->middleware('admin');;
 
-    //images
-    Route::post('/movies/store/{id}', 'ImagesController@storeMovieImage')->name('store.movie.image');
-    Route::post('/featured', 'ImagesController@make_featured')->name('featured.image');
+    //images store
+    Route::post('/movies/store/{id}', 'MoviesImagesController@storeMovieImage')->name('store.movie.image');
     Route::post('/actors/store/{id}', 'ImagesController@storeActorImage')->name('store.actor.image');
-    Route::delete('/images/{id}', 'ImagesController@destroy')->name('delete.image');
+    // images make featured
+    Route::patch('/actors/featured/{id}', 'ImagesController@make_featured')->name('actors.featured');
+    Route::patch('/movies/featured/{id}', 'MoviesImagesController@make_featured')->name('movies.featured');
+    // images delete
+    Route::delete('/actor/image/{id}', 'ImagesController@destroy')->name('delete.image');
+    Route::delete('/movie/image/{id}', 'MoviesImagesController@destroy')->name('delete.image.movie');
 });
 
 // categories
