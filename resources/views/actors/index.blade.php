@@ -26,9 +26,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('actors.show', $actor->id) }}">
-                                        @if(isset($actor->images()->first()->filename))
-                                            <img id="actor-img" src="{{ asset('storage/images/' . $actor->images()->first()->filename) }}">
-                                        @endif
+                                        <img id="actor-img" src="{{ $actor->featured_image }}">
                                         {{ $actor->name }}
                                     </a>
                                 </td>

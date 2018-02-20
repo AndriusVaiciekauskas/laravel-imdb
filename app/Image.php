@@ -17,4 +17,9 @@ class Image extends Model
     {
         return $this->morphTo();
     }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured', 1)->first();
+    }
 }

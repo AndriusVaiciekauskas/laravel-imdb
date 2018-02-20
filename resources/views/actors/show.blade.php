@@ -57,9 +57,7 @@
                             @foreach($actor->movies as $movie)
                                 <li class="list-group-item">
                                     <a href="{{ route('movies.show', $movie->id) }}">
-                                        @if(isset($movie->images()->first()->filename))
-                                            <img id="movie-img" src="{{ asset('storage/images/' . $movie->images()->first()->filename) }}">
-                                        @endif
+                                        <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
                                         {{ $movie->name }}
                                     </a>
                                 </li>
