@@ -28,21 +28,33 @@ class ImagesController extends Controller
         return back();
     }
 
-//    public function make_featured($id)
-//    {
-//        $image = Image::findOrFail($id);
-//        $actor = $image->imagable;
-//        $featured_image = $actor->images()->where('featured', 1);
-//        $featured_image->update(['featured' => 0]);
-//        $image->update(['featured' => 1]);
-//        return back();
-//    }
-
-    public function destroy($id)
+    public function make_featured($image_id, $actor_id)
     {
-        $image = Image::findOrFail($id);
-        $image->delete();
-        Storage::delete('public/images/' . $image->filename);
+        $image = Imagable::where('image_id', $image_id)->where('imagable_id', $actor_id)->where('imagable_type', 'App\Actor');
+        $actor = Actor::findOrFail($actor_id);
+
+        $featured_image = $actor->images()->where('featured', 1);
+        $featured_image->update(['featured' => 0]);
+        $image->update(['featured' => 1]);
+        return back();
+    }
+
+    public function destroy($image_id, $actor_id)
+    {
+        $imagable = Imagable::where('image_id', $image_id)->where('imagable_id', $actor_id)->where('imagable_type', 'App\Actor');
+        $images = Imagable::where('image_id', $image_id)->get();
+
+        if (count($images) == 1) {
+            $imagable->delete();
+            $image = Image::findOrFail($image_id);
+            $image->delete();
+            Storage::delete('public/images/' . $image->filename);
+        } else {
+            $imagable->delete();
+        }
+
+
+
         return back();
     }
 }

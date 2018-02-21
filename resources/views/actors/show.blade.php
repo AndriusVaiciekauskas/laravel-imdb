@@ -22,13 +22,13 @@
                                         <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
                                     @endif
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                                        <form action="{{ route('delete.image', $image->id) }}" method="post">
+                                        <form action="{{ route('delete.image', ['image_id' => $image->id, 'actor_id' => $actor->id]) }}" method="post">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <input type="submit" value="X" class="btn-sm btn-danger" id="delete-button">
                                         </form>
 
-                                        <form action="{{ route('actors.featured', $image->id) }}" method="post">
+                                        <form action="{{ route('actors.featured', ['image_id' => $image->id, 'actor_id' => $actor->id]) }}" method="post">
                                             {{ csrf_field() }}
                                             {{ method_field('PATCH') }}
                                             <input type="submit" value="F" class="btn-sm btn-success" id="featured-image">
