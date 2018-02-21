@@ -36,13 +36,9 @@ class Image extends Model
         'imagable_type',
         'user_id'
     ];
+
     public function imagable()
     {
-        return $this->morphTo();
-    }
-
-    public function scopeFeatured($query)
-    {
-        return $query->where('featured', 1)->first();
+        return $this->hasMany(Imagable::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actor;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
+use App\Image;
 use App\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,10 +53,14 @@ class ActorsController extends Controller
     {
         /** @var Actor $actor */
         $actor = Actor::findOrFail($id);
-        $image = $actor->images()->featured();
+        $movies = $actor->movies;
         $images = $actor->images()->limit(4)->get();
-        $movie_images = $actor->movies();
-        return view('actors.show', compact('actor', 'image', 'images', 'movie_images'));
+        $img = [];
+        foreach ($images as $image) {
+            array_push($img, $image->image);
+        }
+
+        return view('actors.show', compact('actor', 'movies', 'img', 'featured_image'));
     }
 
     public function destroy($id)

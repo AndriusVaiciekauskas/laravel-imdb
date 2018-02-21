@@ -54,15 +54,16 @@ class Movie extends Model
 
     public function images()
     {
-        return $this->morphMany('App\Image', 'imagable');
+        return $this->morphMany(Imagable::class, 'imagable');
     }
 
     public function getFeaturedImageAttribute()
     {
-        $image = $this->images()->where('featured', 1)->first();
+        $featured_image = $this->images()->where('featured', 1)->first();
 
-        if ($image) {
-            return asset('storage/images/' . $image->filename);
+        if ($featured_image) {
+            $image = $featured_image->image;
+            return asset('storage/images/' . $featured_image->filename);
         } else {
             return 'http://suiteapp.com/c.3857091/shopflow-1-03-0/img/no_image_available.jpeg';
         }

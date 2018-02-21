@@ -15,7 +15,7 @@
                         <p>{{ $movie->description }}</p>
                         <h4>Photos</h4>
                         <div class="row">
-                            @foreach($images as $image)
+                            @foreach($img as $image)
                                 <div class="col-sm-3">
                                     <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
@@ -44,6 +44,14 @@
                                             <input type="file" class="form-control-file" name="image">
                                         </div>
                                         <div class="form-group">
+                                            <select name="actor_id" class="form-control">
+                                                <option value="">Choose actor</option>
+                                                @foreach($actors as $actor)
+                                                    <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <input type="submit" class="btn btn-primary" value="Upload">
                                         </div>
                                     </form>
@@ -60,7 +68,7 @@
                             @foreach($movie->actors as $actor)
                                 <li class="list-group-item">
                                     <a href="{{ route('actors.show', $actor->id) }}">
-                                        <img id="actor-img" src="{{ $actor->featured_image }}">
+                                        {{--<img id="actor-img" src="{{ $actor->featured_image }}">--}}
                                         {{ $actor->name }}
                                     </a>
                                 </li>

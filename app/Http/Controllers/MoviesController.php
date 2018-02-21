@@ -53,9 +53,14 @@ class MoviesController extends Controller
     public function show($id)
     {
         $movie = Movie::findOrFail($id);
-        $image = $movie->images()->featured();
+        $actors = $movie->actors;
         $images = $movie->images()->limit(4)->get();
-        return view('movies.show', compact('movie', 'image', 'images'));
+        $img = [];
+        foreach ($images as $image) {
+            array_push($img, $image->image);
+        }
+        // $image = $movie->images()->featured();
+        return view('movies.show', compact('movie', 'actors', 'img'));
     }
 
     public function destroy($id)

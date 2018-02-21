@@ -7,6 +7,7 @@
                 <div class="row mt-4">
                     <div class="col-sm-4">
                         <img class="img-fluid" img-fluid src="{{ $actor->featured_image }}" alt="actor image">
+
                     </div>
                     <div class="col-sm-8">
                         <div>
@@ -15,7 +16,7 @@
                         <p><b>Date of birth:</b> {{ $actor->birthday }}</p>
                         <h4>Photos</h4>
                         <div class="row">
-                            @foreach($images as $image)
+                            @foreach($img as $image)
                                 <div class="col-sm-3">
                                     @if ($image != null)
                                         <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
@@ -46,6 +47,14 @@
                                             <input type="file" class="form-control-file" name="image">
                                         </div>
                                         <div class="form-group">
+                                            <select name="movie_id" class="form-control">
+                                                <option value="">Choose movie</option>
+                                                @foreach($actor->movies as $movie)
+                                                    <option value="{{ $movie->id }}">{{ $movie->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <input type="submit" class="btn btn-primary" value="Upload">
                                         </div>
                                     </form>
@@ -61,7 +70,7 @@
                             @foreach($actor->movies as $movie)
                                 <li class="list-group-item">
                                     <a href="{{ route('movies.show', $movie->id) }}">
-                                        <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
+                                        {{--<img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">--}}
                                         {{ $movie->name }}
                                     </a>
                                 </li>
