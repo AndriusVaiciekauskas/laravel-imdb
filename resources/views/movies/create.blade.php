@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 mx-auto">
-                <h3>Create category</h3>
+                <h3>Add movie</h3>
                 <form method="post" action="{{ route('movies.store') }}">
                     {{ csrf_field() }}
                     @include('movies.partials.form', [

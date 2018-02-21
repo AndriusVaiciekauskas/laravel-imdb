@@ -12,7 +12,12 @@
                         <h4 class="mt-4">Movies in category</h4>
                         <ul class="list-group">
                             @foreach($category->movies as $movie)
-                                <li class="list-group-item"><a href="{{ route('movies.show', $movie->id) }}">{{ $movie->name }}</a></li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('movies.show', $movie->id) }}">
+                                        <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
+                                        {{ $movie->name }}
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>

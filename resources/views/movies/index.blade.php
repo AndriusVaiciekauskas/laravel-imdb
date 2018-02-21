@@ -9,6 +9,9 @@
                         {{ session('errors') }}
                     </div>
                 @endif
+                @if(Auth::user() !== null && Auth::user()->role == 'Admin')
+                    <a href="{{ route('movies.create') }}" class="btn btn-success">Add new movie</a>
+                @endif
                 @if(isset($movies))
                     <table class="table table-bordered">
                         <thead>
@@ -26,7 +29,12 @@
                         <tbody>
                             @foreach($movies as $movie)
                                 <tr>
-                                    <td><a href="{{ route('movies.show', $movie->id) }}">{{ $movie->name }}</a></td>
+                                    <td>
+                                        <a href="{{ route('movies.show', $movie->id) }}">
+                                            <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
+                                            {{ $movie->name }}
+                                        </a>
+                                    </td>
                                     <td>{{ $movie->description }}</td>
                                     <td>{{ $movie->year }}</td>
                                     <td>{{ $movie->rating }}</td>

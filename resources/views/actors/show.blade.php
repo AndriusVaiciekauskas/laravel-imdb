@@ -10,18 +10,6 @@
                     </div>
                     <div class="col-sm-8">
                         <div>
-                            @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                                <form class="form-inline" id="actor_form" method="post" action="{{ route('store.actor.image', $actor->id) }}" enctype="multipart/form-data">
-                                    {{ csrf_field() }}
-                                    <div class="form-group mt-3">
-                                        @include('actors.partials.errors', ['name' => 'image'])
-                                        <input type="file" class="form-control-file" name="image">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" value="Upload">
-                                    </div>
-                                </form>
-                            @endif
                             <h2>{{ $actor->name }}</h2>
                         </div>
                         <p><b>Date of birth:</b> {{ $actor->birthday }}</p>
@@ -47,6 +35,22 @@
                                     @endif
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @if(Auth::user())
+                                    <form class="form-inline mt-3" id="actor_form" method="post" action="{{ route('store.actor.image', $actor->id) }}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <div class="form-group mt-3">
+                                            @include('actors.partials.errors', ['name' => 'image'])
+                                            <input type="file" class="form-control-file" name="image">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary" value="Upload">
+                                        </div>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

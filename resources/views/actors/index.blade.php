@@ -9,6 +9,9 @@
                         {{ session('errors') }}
                     </div>
                 @endif
+                @if(Auth::user() !== null && Auth::user()->role == 'Admin')
+                    <a href="{{ route('actors.create') }}" class="btn btn-success">Add new actor</a>
+                @endif
                 @if(isset($actors))
                 <table class="table table-bordered">
                     <thead>

@@ -9,18 +9,6 @@
                         <img class="img-fluid" src="{{ $movie->featured_image }}" alt="actor image">
                     </div>
                     <div class="col-sm-8">
-                        @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                            <form class="form-inline" id="actor_form" method="post" action="{{ route('store.movie.image', $movie->id) }}" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                <div class="form-group mt-3">
-                                    @include('movies.partials.errors', ['name' => 'image'])
-                                    <input type="file" class="form-control-file" name="image">
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="Upload">
-                                </div>
-                            </form>
-                        @endif
                         <h2>{{ $movie->name }} <small>({{ $movie->year }})</small></h2>
                         <p><b>Category:</b> <a href="{{ route('categories.show', $movie->category->id) }}">{{ $movie->category->name }}</a></p>
                         <p><b>Description:</b></p>
@@ -45,6 +33,22 @@
                                     @endif
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @if(Auth::user())
+                                    <form class="form-inline mt-3" id="actor_form" method="post" action="{{ route('store.movie.image', $movie->id) }}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <div class="form-group mt-3">
+                                            @include('movies.partials.errors', ['name' => 'image'])
+                                            <input type="file" class="form-control-file" name="image">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary" value="Upload">
+                                        </div>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

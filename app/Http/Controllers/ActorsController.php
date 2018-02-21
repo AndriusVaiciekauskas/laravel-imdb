@@ -50,6 +50,7 @@ class ActorsController extends Controller
 
     public function show($id)
     {
+        /** @var Actor $actor */
         $actor = Actor::findOrFail($id);
         $image = $actor->images()->featured();
         $images = $actor->images()->limit(4)->get();
