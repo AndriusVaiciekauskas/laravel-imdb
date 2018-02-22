@@ -32,9 +32,7 @@ class ImagesController extends Controller
     {
 //        $image = Imagable::where('image_id', $image_id)->where('imagable_id', $actor_id)->where('imagable_type', 'App\Actor');
         $actor = Actor::findOrFail($actor_id);
-        $image = $actor->images()->where('image_id', $image_id)->get();
-        dd($image);
-
+        $image = $actor->images()->where('image_id', $image_id);
 
         $featured_image = $actor->images()->where('featured', 1);
         $featured_image->update(['featured' => 0]);

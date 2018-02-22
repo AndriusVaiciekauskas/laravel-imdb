@@ -29,8 +29,8 @@ class MoviesImagesController extends Controller
 
     public function make_featured($image_id, $movie_id)
     {
-        $image = Imagable::where('image_id', $image_id)->where('imagable_id', $movie_id)->where('imagable_type', 'App\Movie');
         $movie = Movie::findOrFail($movie_id);
+        $image = $movie->images()->where('image_id', $image_id);
 
         $featured_image = $movie->images()->where('featured', 1);
         $featured_image->update(['featured' => 0]);
