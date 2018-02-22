@@ -17,7 +17,7 @@
     <label>Movies</label>
     <select class="movies-select form-control" name="movies[]" multiple="multiple">
         @foreach($movies as $movie)
-            @if($actor_movies->contains($movie))
+            @if(isset($actor_movies) && $actor_movies->contains($movie))
                 <option value="{{ $movie->id }}" selected>{{ $movie->name }}</option>
             @else
                 <option value="{{ $movie->id }}">{{ $movie->name }}</option>
