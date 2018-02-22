@@ -35,17 +35,17 @@ class MoviesController extends Controller
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
+        $movie_actors = $movie->actors;
         $categories = Category::all();
         $actors = Actor::All();
-        return view('movies.edit', compact('movie', 'categories', 'actors'));
+        return view('movies.edit', compact('movie', 'categories', 'actors', 'movie_actors'));
     }
 
     public function update(UpdateMovieRequest $request, $id)
     {
         $movie = Movie::findOrFail($id);
         $movie->update($request->except('_token') + ['user_id' => Auth::user()->id]);
-        $movie->actors()->detach($request->input('actors'));
-        $movie->actors()->attach($request->input('actors'));
+        $movie->actors()->sync($request->input('actors'));
 
         return redirect()->route('movies');
     }
@@ -59,7 +59,7 @@ class MoviesController extends Controller
         foreach ($images as $image) {
             array_push($img, $image->image);
         }
-        // $image = $movie->images()->featured();
+
         return view('movies.show', compact('movie', 'actors', 'img'));
     }
 
@@ -67,5 +67,12 @@ class MoviesController extends Controller
     {
         Movie::findOrFail($id)->delete();
         return redirect()->route('movies');
+    }
+
+    public function detachActor($movie_id, $actor_id)
+    {
+        $movie = Movie::findOrFail($movie_id);
+        $movie->actors()->detach($actor_id);
+        return back();
     }
 }

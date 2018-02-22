@@ -69,10 +69,14 @@
                         <ul class="list-group text-dark my-4">
                             @foreach($actor->movies as $movie)
                                 <li class="list-group-item">
-                                    <a href="{{ route('movies.show', $movie->id) }}">
-                                        {{--<img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">--}}
+                                    <a class="float-left" href="{{ route('movies.show', $movie->id) }}">
+                                        <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
                                         {{ $movie->name }}
                                     </a>
+                                    <form action="{{ route('detach.movie', ['actor_id' => $actor->id, 'movie_id' => $movie->id]) }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="submit" name="detach-movie" class="btn-sm btn-danger float-right" value="Remove">
+                                    </form>
                                 </li>
                             @endforeach
                         </ul>

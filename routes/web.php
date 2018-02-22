@@ -32,7 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/movies/store', 'MoviesController@store')->name('movies.store');
     Route::get('/movies/{id}/edit', 'MoviesController@edit')->name('movies.edit');
     Route::patch('/movies/{id}', 'MoviesController@update')->name('movies.update');
-    Route::delete('/movies/{id}', 'MoviesController@destroy')->name('movies.destroy')->middleware('admin');;
+    Route::delete('/movies/{id}', 'MoviesController@destroy')->name('movies.destroy')->middleware('admin');
+    Route::post('/movies/detach/{movie_id}/{actor_id}', 'MoviesController@detachActor')->name('detach.actor')->middleware('admin');
 
     //actors
     Route::get('/actors/create', 'ActorsController@create')->name('actors.create');
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/actors/{id}/edit', 'ActorsController@edit')->name('actors.edit');
     Route::patch('/actors/{id}', 'ActorsController@update')->name('actors.update');
     Route::delete('/actors/{id}', 'ActorsController@destroy')->name('actors.destroy')->middleware('admin');;
+    Route::post('/actors/detach/{movie_id}/{actor_id}', 'ActorsController@detachMovie')->name('detach.movie')->middleware('admin');
 
     //images store
     Route::post('/movies/store/{id}', 'MoviesImagesController@storeMovieImage')->name('store.movie.image');

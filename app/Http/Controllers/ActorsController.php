@@ -35,16 +35,16 @@ class ActorsController extends Controller
     public function edit($id)
     {
         $actor = Actor::findOrFail($id);
+        $actor_movies = $actor->movies;
         $movies = Movie::all();
-        return view('actors.edit', compact('actor', 'movies'));
+        return view('actors.edit', compact('actor', 'movies', 'actor_movies'));
     }
 
     public function update(UpdateActorRequest $request, $id)
     {
         $actor = Actor::findOrFail($id);
         $actor->update($request->except('_token', 'movies') + ['user_id' => Auth::user()->id]);
-        $actor->movies()->detach($request->input('movies'));
-        $actor->movies()->attach($request->input('movies'));
+        $actor->movies()->sync($request->input('movies'));
 
         return redirect()->route('actors');
     }
@@ -67,5 +67,12 @@ class ActorsController extends Controller
     {
         Actor::findOrFail($id)->delete();
         return redirect()->route('actors');
+    }
+
+    public function detachMovie($movie_id, $actor_id)
+    {
+        $actor = Actor::findOrFail($actor_id);
+        $actor->movies()->detach($movie_id);
+        return back();
     }
 }

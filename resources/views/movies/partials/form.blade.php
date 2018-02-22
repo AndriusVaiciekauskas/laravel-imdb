@@ -29,9 +29,13 @@
 </div>
 <div class="form-group">
     <label>Actors</label>
-    <select multiple class="form-control" name="actors[]">
+    <select class="actors-select form-control" name="actors[]" multiple="multiple">
         @foreach($actors as $actor)
-            <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+            @if($movie_actors->contains($actor))
+                <option value="{{ $actor->id }}" selected>{{ $actor->name }}</option>
+            @else
+                <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+            @endif
         @endforeach
     </select>
 </div>

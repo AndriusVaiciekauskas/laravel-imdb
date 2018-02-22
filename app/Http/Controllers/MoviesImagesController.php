@@ -52,8 +52,6 @@ class MoviesImagesController extends Controller
             $imagable->delete();
         }
 
-
-
         return back();
     }
 }
