@@ -30,7 +30,6 @@ class ImagesController extends Controller
 
     public function make_featured($image_id, $actor_id)
     {
-//        $image = Imagable::where('image_id', $image_id)->where('imagable_id', $actor_id)->where('imagable_type', 'App\Actor');
         $actor = Actor::findOrFail($actor_id);
         $image = $actor->images()->where('image_id', $image_id);
 

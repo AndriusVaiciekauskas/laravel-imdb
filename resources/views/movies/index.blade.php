@@ -37,7 +37,7 @@
                                     </td>
                                     <td>{{ $movie->description }}</td>
                                     <td>{{ $movie->year }}</td>
-                                    <td>{{ $movie->rating }}</td>
+                                    <td>{{ number_format($movie->ratings->avg('rating'), 1) }}</td>
                                     <td>{{ $movie->category->name }}</td>
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                         <td>

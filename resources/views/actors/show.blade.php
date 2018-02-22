@@ -73,10 +73,12 @@
                                         <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
                                         {{ $movie->name }}
                                     </a>
-                                    <form action="{{ route('detach.movie', ['actor_id' => $actor->id, 'movie_id' => $movie->id]) }}" method="post">
-                                        {{ csrf_field() }}
-                                        <input type="submit" name="detach-movie" class="btn-sm btn-danger float-right" value="Remove">
-                                    </form>
+                                    @if(Auth::user() !== null && Auth::user()->role == 'Admin')
+                                        <form action="{{ route('detach.movie', ['actor_id' => $actor->id, 'movie_id' => $movie->id]) }}" method="post">
+                                            {{ csrf_field() }}
+                                            <input type="submit" name="detach-movie" class="btn-sm btn-danger float-right" value="Remove">
+                                        </form>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

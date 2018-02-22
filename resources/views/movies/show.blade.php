@@ -9,7 +9,42 @@
                         <img class="img-fluid" src="{{ $movie->featured_image }}" alt="actor image">
                     </div>
                     <div class="col-sm-8">
-                        <h2>{{ $movie->name }} <small>({{ $movie->year }})</small></h2>
+                        <h2>
+                            {{ $movie->name }}
+                            <small>({{ $movie->year }})</small>
+                            @if(Auth::user() && $user_rating == null)
+                                <form class="form-inline float-right" action="{{ route('movies.rate', $movie->id) }}" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="form-group input-group-sm mr-1">
+                                        <select name="rating" class="form-control">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn-sm btn-light" value="Rate!">
+                                    </div>
+                                </form>
+                            @endif
+                        </h2>
+                        <p>
+                            <b>Rating:</b>
+                        @if($rating != 0)
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ $rating * 10 }}%" aria-valuenow="{{ $rating * 10 }}" aria-valuemin="0" aria-valuemax="100">{{ $rating }}</div>
+                            </div>
+                        @else
+                            Not rated yet!
+                            @endif
+                        </p>
                         <p><b>Category:</b> <a href="{{ route('categories.show', $movie->category->id) }}">{{ $movie->category->name }}</a></p>
                         <p><b>Description:</b></p>
                         <p>{{ $movie->description }}</p>
@@ -71,10 +106,12 @@
                                         <img id="actor-img" class="img-fluid" src="{{ $actor->featured_image }}">
                                         {{ $actor->name }}
                                     </a>
-                                    <form action="{{ route('detach.actor', ['movie_id' => $movie->id, 'actor_id' => $actor->id]) }}" method="post">
-                                        {{ csrf_field() }}
-                                        <input type="submit" name="detach-movie" class="btn-sm btn-danger float-right" value="Remove">
-                                    </form>
+                                    @if(Auth::user() !== null && Auth::user()->role == 'Admin')
+                                        <form action="{{ route('detach.actor', ['movie_id' => $movie->id, 'actor_id' => $actor->id]) }}" method="post">
+                                            {{ csrf_field() }}
+                                            <input type="submit" name="detach-movie" class="btn-sm btn-danger float-right" value="Remove">
+                                        </form>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

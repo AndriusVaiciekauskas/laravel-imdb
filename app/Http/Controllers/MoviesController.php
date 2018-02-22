@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Movie;
+use App\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,7 +61,13 @@ class MoviesController extends Controller
             array_push($img, $image->image);
         }
 
-        return view('movies.show', compact('movie', 'actors', 'img'));
+        if (Auth::user() !== null) {
+            $user_rating = Auth::user()->ratings()->where('movie_id', $id)->first();
+        }
+
+        $rating = Rating::where('movie_id', $id)->avg('rating');
+        $rating = number_format($rating,1);
+        return view('movies.show', compact('movie', 'actors', 'img', 'user_rating', 'rating'));
     }
 
     public function destroy($id)
