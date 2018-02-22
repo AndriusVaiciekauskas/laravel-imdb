@@ -57,6 +57,11 @@ class Movie extends Model
         return $this->morphMany(Imagable::class, 'imagable');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
     public function getFeaturedImageAttribute()
     {
         $featured_image = $this->images()->where('featured', 1)->first();

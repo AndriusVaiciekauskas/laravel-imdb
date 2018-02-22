@@ -48,4 +48,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }
