@@ -52,6 +52,9 @@ Route::group(['middleware' => ['auth']], function () {
     // images delete
     Route::delete('/actor/image/{image_id}/{actor_id}', 'ImagesController@destroy')->name('delete.image');
     Route::delete('/movie/image/{image_id}/{movie_id}', 'MoviesImagesController@destroy')->name('delete.image.movie');
+
+    // movie ratings
+    Route::post('movies/rate', 'RatingsController@store')->name('movies.rate');
 });
 
 // categories
