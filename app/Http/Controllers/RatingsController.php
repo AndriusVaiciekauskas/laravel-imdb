@@ -7,6 +7,7 @@ use App\Movie;
 use App\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RatingsController extends Controller
 {
@@ -24,10 +25,12 @@ class RatingsController extends Controller
 
     public function get_top()
     {
-        $movies = Movie::all();
-        foreach ($movies as $movie) {
-            echo $movie->name . "<br>";
-            echo $movie->ratings->avg('rating') . "<br>";
-        }
+        $movies = Movie::leftJoin('ratings', 'movies.id', '=', 'ratings.movie_id')
+            ->selectRaw('round(avg(rating),1) as rating, movies.*')
+            ->groupBy('movies.id')
+            ->orderBy('rating', 'desc')
+            ->get();
+
+        return view('movies.top', compact('movies'));
     }
 }

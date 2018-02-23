@@ -30,6 +30,7 @@
                         <li><a class="nav-link" href="{{ route('categories') }}">Categories</a></li>
                         <li><a class="nav-link" href="{{ route('movies') }}">Movies</a></li>
                         <li><a class="nav-link" href="{{ route('actors') }}">Actors</a></li>
+                        <li><a class="nav-link" href="{{ route('movies.top') }}">Top movies</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -9995,9 +9995,14 @@ a.text-dark:focus {
 }
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: #434343 !important;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.nav-link,
+.navbar-brand {
+  color: #ffffff !important;
 }
 
 #image-show {
