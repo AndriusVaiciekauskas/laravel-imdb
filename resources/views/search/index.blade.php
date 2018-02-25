@@ -18,7 +18,7 @@
                             @foreach($movies as $movie)
                                 <tr>
                                     <td>
-                                        <a class="float-left" href="{{ route('actors.show', $movie->id) }}">
+                                        <a class="float-left" href="{{ route('movies.show', $movie->id) }}">
                                             <img id="actor-img" class="img-fluid" src="{{ $movie->featured_image }}">
                                             {{ $movie->name }}
                                         </a>
