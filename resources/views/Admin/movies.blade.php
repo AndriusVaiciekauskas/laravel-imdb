@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin', ['title' => 'Movies'])
 
 @section('content')
     <div class="container">
@@ -10,50 +10,52 @@
                     </div>
                 @endif
                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                    <a href="{{ route('actors.create') }}" class="btn btn-success">Add new actor</a>
+                    <a href="{{ route('movies.create') }}" class="btn btn-success">Add new movie</a>
                 @endif
-                @if(isset($actors))
-                <table class="table table-bordered">
-                    <thead>
+                @if(isset($movies))
+                    <table class="table table-bordered">
+                        <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Birthday</th>
-                            <th>Deathday</th>
+                            <th>Movie</th>
+                            <th>Year</th>
+                            <th>Rating</th>
+                            <th>Category</th>
                             @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                 <th>Action</th>
                             @endif
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($actors as $actor)
+                        </thead>
+                        <tbody>
+                        @foreach($movies as $movie)
                             <tr>
                                 <td>
-                                    <a href="{{ route('actors.show', $actor->id) }}">
-                                        <img id="actor-img" src="{{ $actor->featured_image }}">
-                                        {{ $actor->name }}
+                                    <a href="{{ route('movies.show', $movie->id) }}">
+                                        <img id="movie-img" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
+                                        {{ $movie->name }}
                                     </a>
                                 </td>
-                                <td>{{ $actor->birthday }}</td>
-                                <td>{{ $actor->deathday }}</td>
+                                <td>{{ $movie->year }}</td>
+                                <td>{{ number_format($movie->ratings->avg('rating'), 1) }}</td>
+                                <td>{{ $movie->category->name }}</td>
                                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                     <td>
-                                        <form method="post" action="{{ route('actors.destroy', $actor->id) }}">
+                                        <form method="post" action="{{ route('movies.destroy', $movie->id) }}">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
-                                            <a href="{{ route('actors.edit', $actor->id) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-info">Edit</a>
                                             <input type="submit" class="btn btn-danger" value="Delete">
                                         </form>
                                     </td>
                                 @endif
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 @else
                     <h4>No categories yet</h4>
                 @endif
                 <div class="text-center">
-                    {{ $actors->links() }}
+                    {{ $movies->links() }}
                 </div>
             </div>
         </div>

@@ -52,7 +52,11 @@
                         <div class="row">
                             @foreach($img as $image)
                                 <div class="col-sm-3">
-                                    <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
+                                    @if(strpos($image->filename, 'https') !== false)
+                                        <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->filename }}" alt="actor image">
+                                    @else
+                                        <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
+                                    @endif
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                         <form action="{{ route('delete.image.movie', ['image_id' => $image->id, 'movie_id' => $movie->id]) }}" method="post">
                                             {{ csrf_field() }}

@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/actors/store', 'ActorsController@store')->name('actors.store');
     Route::get('/actors/{id}/edit', 'ActorsController@edit')->name('actors.edit');
     Route::patch('/actors/{id}', 'ActorsController@update')->name('actors.update');
-    Route::delete('/actors/{id}', 'ActorsController@destroy')->name('actors.destroy')->middleware('admin');;
+    Route::delete('/actors/{id}', 'ActorsController@destroy')->name('actors.destroy')->middleware('admin');
     Route::post('/actors/detach/{movie_id}/{actor_id}', 'ActorsController@detachMovie')->name('detach.movie')->middleware('admin');
 
     //images store
@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth']], function () {
     // movie ratings
     Route::post('movies/rate/{id}', 'RatingsController@store')->name('movies.rate');
 
+    //admin
+    Route::get('admin/movies', 'AdminController@movies')->name('admin.movies')->middleware('admin');
+    Route::get('admin/actors', 'AdminController@actors')->name('admin.actors')->middleware('admin');
+    Route::get('admin/categories', 'AdminController@categories')->name('admin.categories')->middleware('admin');
 });
 
 Route::get('movies/top', 'RatingsController@get_top')->name('movies.top');
@@ -73,6 +77,8 @@ Route::get('/movies/{id}', 'MoviesController@show')->name('movies.show');
 Route::get('/actors', 'ActorsController@index')->name('actors');
 Route::get('/actors/{id}', 'ActorsController@show')->name('actors.show');
 
+// search
+Route::post('/', 'SearchController@search')->name('search');
 
 Auth::routes();
 

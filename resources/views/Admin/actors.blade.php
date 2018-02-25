@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin', ['title' => 'Actors'])
 
 @section('content')
     <div class="container">
@@ -13,8 +13,8 @@
                     <a href="{{ route('actors.create') }}" class="btn btn-success">Add new actor</a>
                 @endif
                 @if(isset($actors))
-                <table class="table table-bordered">
-                    <thead>
+                    <table class="table table-bordered">
+                        <thead>
                         <tr>
                             <th>Name</th>
                             <th>Birthday</th>
@@ -23,8 +23,8 @@
                                 <th>Action</th>
                             @endif
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         @foreach($actors as $actor)
                             <tr>
                                 <td>
@@ -47,8 +47,8 @@
                                 @endif
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 @else
                     <h4>No categories yet</h4>
                 @endif

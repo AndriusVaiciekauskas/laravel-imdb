@@ -14,7 +14,7 @@ class ActorsController extends Controller
 {
     public function index()
     {
-        $actors = Actor::all();
+        $actors = Actor::paginate(10);
         return view('actors.index', compact('actors'));
     }
 
@@ -46,7 +46,7 @@ class ActorsController extends Controller
         $actor->update($request->except('_token', 'movies') + ['user_id' => Auth::user()->id]);
         $actor->movies()->sync($request->input('movies'));
 
-        return redirect()->route('actors');
+        return redirect()->route('actors.show', $id);
     }
 
     public function show($id)
@@ -65,8 +65,10 @@ class ActorsController extends Controller
 
     public function destroy($id)
     {
-        Actor::findOrFail($id)->delete();
-        return redirect()->route('actors');
+        $actor = Actor::findOrFail($id);
+        $actor->movies()->detach();
+        $actor->delete();
+        return redirect()->back()->with('success', 'Actor successfuly delete.');
     }
 
     public function detachMovie($movie_id, $actor_id)

@@ -30,7 +30,6 @@ class UpdateMovieRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'year' => 'required|integer|min:1900|max:2100',
-            'rating' => 'required',
             'category_id' => 'required'
         ];
     }

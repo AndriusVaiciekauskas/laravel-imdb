@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRatingRequest;
 use App\Movie;
 use App\Rating;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,9 +28,10 @@ class RatingsController extends Controller
     public function get_top()
     {
         $movies = Movie::leftJoin('ratings', 'movies.id', '=', 'ratings.movie_id')
-            ->selectRaw('round(avg(rating),1) as rating, movies.*')
+            ->selectRaw('round(avg(rating),1) as rating, movies.name, movies.id')
             ->groupBy('movies.id')
             ->orderBy('rating', 'desc')
+            ->limit(10)
             ->get();
 
         return view('movies.top', compact('movies'));

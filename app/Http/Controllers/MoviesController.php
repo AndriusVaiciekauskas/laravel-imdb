@@ -15,7 +15,7 @@ class MoviesController extends Controller
 {
     public function index()
     {
-        $movies = Movie::with('category')->get();
+        $movies = Movie::with('category')->paginate(10);
         return view('movies.index', compact('movies'));
     }
 
@@ -48,7 +48,7 @@ class MoviesController extends Controller
         $movie->update($request->except('_token') + ['user_id' => Auth::user()->id]);
         $movie->actors()->sync($request->input('actors'));
 
-        return redirect()->route('movies');
+        return redirect()->route('movies.show', $id);
     }
 
     public function show($id)
@@ -72,8 +72,10 @@ class MoviesController extends Controller
 
     public function destroy($id)
     {
-        Movie::findOrFail($id)->delete();
-        return redirect()->route('movies');
+        $movie = Movie::findOrFail($id);
+        $movie->actors()->detach();
+        $movie->delete();
+        return redirect()->back()->with('success', 'Movie has been delete successfuly.');
     }
 
     public function detachActor($movie_id, $actor_id)

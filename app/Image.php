@@ -31,9 +31,6 @@ class Image extends Model
 {
     protected $fillable = [
         'filename',
-        'featured',
-        'imagable_id',
-        'imagable_type',
         'user_id'
     ];
 

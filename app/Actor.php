@@ -51,7 +51,11 @@ class Actor extends Model
 
         if ($featured_image) {
             $image = $featured_image->image;
-            return asset('storage/images/' . $image->filename);
+            if (strpos($image->filename, 'https') !== false) {
+                return $image->filename;
+            } else {
+                return asset('storage/images/' . $image->filename);
+            }
         } else {
             return 'http://suiteapp.com/c.3857091/shopflow-1-03-0/img/no_image_available.jpeg';
         }

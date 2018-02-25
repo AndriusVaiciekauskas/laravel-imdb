@@ -56,6 +56,9 @@
                 @else
                     <h4>No categories yet</h4>
                 @endif
+                <div class="text-center">
+                    {{ $movies->links() }}
+                </div>
             </div>
         </div>
     </div>

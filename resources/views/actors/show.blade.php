@@ -7,7 +7,6 @@
                 <div class="row mt-4">
                     <div class="col-sm-4">
                         <img class="img-fluid" img-fluid src="{{ $actor->featured_image }}" alt="actor image">
-
                     </div>
                     <div class="col-sm-8">
                         <div>
@@ -19,7 +18,11 @@
                             @foreach($img as $image)
                                 <div class="col-sm-3">
                                     @if ($image != null)
-                                        <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
+                                        @if(strpos($image->filename, 'https') !== false)
+                                            <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->filename }}" alt="actor image">
+                                        @else
+                                            <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
+                                        @endif
                                     @endif
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                         <form action="{{ route('delete.image', ['image_id' => $image->id, 'actor_id' => $actor->id]) }}" method="post">

@@ -26,7 +26,7 @@ class DropColumnRatingOnMoviesTable extends Migration
     public function down()
     {
         Schema::table('movies', function(Blueprint $table) {
-           $table->duoble('rating');
+           $table->double('rating');
         });
     }
 }

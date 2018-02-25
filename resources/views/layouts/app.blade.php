@@ -27,31 +27,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" href="{{ route('categories') }}">Categories</a></li>
-                        <li><a class="nav-link" href="{{ route('movies') }}">Movies</a></li>
-                        <li><a class="nav-link" href="{{ route('actors') }}">Actors</a></li>
                         <li><a class="nav-link" href="{{ route('movies.top') }}">Top movies</a></li>
+                        <li><a class="nav-link" href="{{ route('categories') }}">Categories</a></li>
+                        <form class="form-inline" action="{{ route('search') }}" method="post">
+                            {{ csrf_field() }}
+                            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-
                             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @else
                             @if(Auth::user()->role == 'Admin')
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Admin <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('categories') }}">Categories</a>
-                                    <a class="dropdown-item" href="{{ route('movies') }}">Movies</a>
-                                    <a class="dropdown-item" href="{{ route('actors') }}">Actors</a>
-                                </div>
-                            </li>
+                                    <li><a class="nav-link" href="{{ route('admin.movies') }}">Admin</a></li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
