@@ -13,12 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MoviesController extends Controller
 {
-    public function index()
-    {
-        $movies = Movie::with('category')->paginate(10);
-        return view('movies.index', compact('movies'));
-    }
-
     public function create()
     {
         $categories = Category::all();
@@ -30,7 +24,8 @@ class MoviesController extends Controller
     {
         $movie = Movie::create($request->except('_token', 'actors') + ['user_id' => Auth::user()->id]);
         $movie->actors()->attach($request->input('actors'));
-        return redirect()->route('movies');
+
+        return redirect()->route('movies.show', $movie->id);
     }
 
     public function edit($id)

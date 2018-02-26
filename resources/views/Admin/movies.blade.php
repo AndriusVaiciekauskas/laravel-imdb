@@ -10,7 +10,14 @@
                     </div>
                 @endif
                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                    <a href="{{ route('movies.create') }}" class="btn btn-success">Add new movie</a>
+                    <div>
+                        <a href="{{ route('movies.create') }}" class="btn btn-success pb-2">Add new movie</a>
+                        <form class="form-inline float-right pb-2" action="{{ route('search.movies') }}" method="post">
+                            {{ csrf_field() }}
+                            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0 search-btn" type="submit">Search</button>
+                        </form>
+                    </div>
                 @endif
                 @if(isset($movies))
                     <table class="table table-bordered">

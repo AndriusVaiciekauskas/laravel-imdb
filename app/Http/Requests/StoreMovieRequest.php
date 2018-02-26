@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreMovieRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreMovieRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()) {
+        if (Auth::user()->role == "Admin") {
             return true;
         }
     }
@@ -29,7 +30,6 @@ class StoreMovieRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'year' => 'required|integer|min:1900|max:2100',
-            'rating' => 'required',
             'category_id' => 'required'
         ];
     }

@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ActorsController extends Controller
 {
-    public function index()
-    {
-        $actors = Actor::paginate(10);
-        return view('actors.index', compact('actors'));
-    }
-
     public function create()
     {
         $movies = Movie::all();
@@ -29,7 +23,7 @@ class ActorsController extends Controller
         $actor = Actor::create($request->except('_token', 'movies') + ['user_id' => Auth::user()->id]);
         $actor->movies()->attach($request->input('movies'));
 
-        return redirect()->route('actors');
+        return redirect()->route('actors.show', $actor->id);
     }
 
     public function edit($id)

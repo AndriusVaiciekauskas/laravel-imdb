@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-12 card bg-info">
-                <h2>Latest movies</h2>
+            <div class="col-12 card bg-dark">
+                <h2 class="text-white">Latest movies</h2>
                 <div class="row">
                     @foreach($movies as $movie)
                         <div class="col-sm-6 col-md-4 col-lg-4">

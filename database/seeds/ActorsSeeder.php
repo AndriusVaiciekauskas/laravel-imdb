@@ -15,8 +15,6 @@ class ActorsSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
         for ($i = 1; $i <= 200; $i++) {
             // actors
             $client = new Client();
@@ -26,10 +24,21 @@ class ActorsSeeder extends Seeder
             $actors = $r->results;
 
             foreach ($actors as $actor) {
+                // actor birthday
+                $client1 = new Client();
+                $res = $client1->request('GET', 'https://api.themoviedb.org/3/person/'.$actor->id.'?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+                $result = $res->getBody()->getContents();
+                $a = json_decode($result);
+                if (!isset($a->birthday)) {
+                    $bday = null;
+                } else {
+                    $bday = $a->birthday;
+                }
+
                 // add to actors
                 $person = Actor::create([
                     'name' => $actor->name,
-                    'birthday' => $faker->date,
+                    'birthday' => $bday,
                     'user_id' => 1,
                 ]);
 

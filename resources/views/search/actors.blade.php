@@ -59,9 +59,6 @@
                 @else
                     <h4>No categories yet</h4>
                 @endif
-                <div class="text-center">
-                    {{ $actors->links() }}
-                </div>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
                     </div>
                 @endif
                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')
-                    <a href="{{ route('categories.create') }}" class="btn btn-success">Add new category</a>
+                    <a href="{{ route('categories.create') }}" class="btn btn-success mb-2">Add new category</a>
                 @endif
                 @if(isset($categories))
                     <table class="table table-bordered">

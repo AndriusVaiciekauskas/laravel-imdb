@@ -8,7 +8,7 @@
                     <div class="col-sm-4">
                         <img class="img-fluid" src="{{ $movie->featured_image }}" alt="actor image">
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 movie">
                         <h2>
                             {{ $movie->name }}
                             <small>({{ $movie->year }})</small>
@@ -37,12 +37,12 @@
                         </h2>
                         <p>
                             <b>Rating:</b>
-                        @if($rating != 0)
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: {{ $rating * 10 }}%" aria-valuenow="{{ $rating * 10 }}" aria-valuemin="0" aria-valuemax="100">{{ $rating }}</div>
-                            </div>
-                        @else
-                            Not rated yet!
+                            @if($rating != 0)
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: {{ $rating * 10 }}%" aria-valuenow="{{ $rating * 10 }}" aria-valuemin="0" aria-valuemax="100">{{ $rating }}</div>
+                                </div>
+                            @else
+                                Not rated yet!
                             @endif
                         </p>
                         <p><b>Category:</b> <a href="{{ route('categories.show', $movie->category->id) }}">{{ $movie->category->name }}</a></p>

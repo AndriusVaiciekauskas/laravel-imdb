@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRatingRequest;
 use App\Movie;
 use App\Rating;
 use Carbon\Carbon;
+use DOMDocument;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

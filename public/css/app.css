@@ -9994,6 +9994,84 @@ a.text-dark:focus {
   }
 }
 
+body {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #444444;
+}
+
+h1,
+h2 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #6365d2;
+  text-decoration: none;
+}
+
+.nav-pills .nav-item.show .nav-link,
+.nav-pills .nav-link.active {
+  background-color: #434343;
+  color: #fff;
+}
+
+h1 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+h2 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+h3 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+h4 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+h5 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  letter-spacing: .1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+h6 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: .8rem;
+  letter-spacing: .1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+p {
+  color: #7c7c7c;
+  font-size: .9rem;
+}
+
 .navbar-laravel {
   background-color: #434343 !important;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -10035,7 +10113,7 @@ a.text-dark:focus {
 
 a {
   text-decoration: none;
-  color: #899491;
+  color: #444444;
 }
 
 a:hover {
@@ -10062,6 +10140,22 @@ a:hover {
 
 #featured-image:hover {
   opacity: 1;
+}
+
+.movie p {
+  color: #fff !important;
+}
+
+.movie a {
+  color: #7c7c7c !important;
+}
+
+form .search-btn {
+  color: #28a745 !important;
+}
+
+form .search-btn:hover {
+  color: #ffffff !important;
 }
 
 .select2-container {
