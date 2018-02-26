@@ -49,7 +49,7 @@ class MoviesController extends Controller
     public function show($id)
     {
         $movie = Movie::findOrFail($id);
-        $actors = $movie->actors;
+        $actors = $movie->actors()->limit(10)->get();
         $images = $movie->images()->limit(4)->get();
         $img = [];
         foreach ($images as $image) {

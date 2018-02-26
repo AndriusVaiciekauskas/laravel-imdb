@@ -29,7 +29,8 @@ class ActorsSeeder extends Seeder
                 $res = $client1->request('GET', 'https://api.themoviedb.org/3/person/'.$actor->id.'?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
                 $result = $res->getBody()->getContents();
                 $a = json_decode($result);
-                if (!isset($a->birthday)) {
+
+                if (!isset($a->birthday) || count(explode('-', $a->birthday)) != 3) {
                     $bday = null;
                 } else {
                     $bday = $a->birthday;

@@ -104,7 +104,7 @@
                         <hr>
                         <h3 class="mt-4">Cast</h3>
                         <ul class="list-group text-dark my-4">
-                            @foreach($movie->actors as $actor)
+                            @foreach($actors as $actor)
                                 <li class="list-group-item">
                                     <a class="float-left" href="{{ route('actors.show', $actor->id) }}">
                                         <img id="actor-img" class="img-fluid" src="{{ $actor->featured_image }}">
