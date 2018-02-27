@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -75,5 +76,10 @@ class Movie extends Model
         } else {
             return 'http://suiteapp.com/c.3857091/shopflow-1-03-0/img/no_image_available.jpeg';
         }
+    }
+
+    public function getYearAttribute()
+    {
+        return Carbon::createFromFormat('Y-m-d', $this->release_date)->year;
     }
 }

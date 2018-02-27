@@ -38,4 +38,13 @@ class Image extends Model
     {
         return $this->hasMany(Imagable::class);
     }
+
+    public function getSmallImageAttribute()
+    {
+        if (strpos($this->filename, 'https') !== false) {
+            return  $this->filename;
+        } else {
+            return asset('storage/images/' . $this->filename);
+        }
+    }
 }

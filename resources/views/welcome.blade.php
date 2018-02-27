@@ -7,7 +7,7 @@
                 <h2 class="text-white">Latest movies</h2>
                 <div class="row">
                     @foreach($movies as $movie)
-                        <div class="col-sm-6 col-md-4 col-lg-4">
+                        <div class="col-sm-6 col-md-3 col-lg-3">
                             <a href="{{ route('movies.show', $movie->id) }}">
                                 <img id="image-front" class="img-fluid" img-fluid src="{{ $movie->featured_image }}" alt="actor image">
                             </a>

@@ -41,6 +41,7 @@
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" style="width: {{ $rating * 10 }}%" aria-valuenow="{{ $rating * 10 }}" aria-valuemin="0" aria-valuemax="100">{{ $rating }}</div>
                                 </div>
+                                <small>Votes:({{ $votes }})</small>
                             @else
                                 Not rated yet!
                             @endif
@@ -52,11 +53,7 @@
                         <div class="row">
                             @foreach($img as $image)
                                 <div class="col-sm-3">
-                                    @if(strpos($image->filename, 'https') !== false)
-                                        <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->filename }}" alt="actor image">
-                                    @else
-                                        <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
-                                    @endif
+                                    <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->small_image }}" alt="actor image">
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                         <form action="{{ route('delete.image.movie', ['image_id' => $image->id, 'movie_id' => $movie->id]) }}" method="post">
                                             {{ csrf_field() }}
@@ -119,6 +116,9 @@
                                 </li>
                             @endforeach
                         </ul>
+                        @if(count($movie->actors) > 10)
+                            <a class="btn-link" href="{{ route('movies.cast', $movie->id) }}">See full cast...</a>
+                        @endif
                     </div>
                 </div>
             </div>

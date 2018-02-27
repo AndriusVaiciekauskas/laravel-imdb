@@ -60,9 +60,11 @@ class MoviesController extends Controller
             $user_rating = Auth::user()->ratings()->where('movie_id', $id)->first();
         }
 
+        $votes = count(Rating::where('movie_id', $id)->get());
+
         $rating = Rating::where('movie_id', $id)->avg('rating');
         $rating = number_format($rating,1);
-        return view('movies.show', compact('movie', 'actors', 'img', 'user_rating', 'rating'));
+        return view('movies.show', compact('movie', 'actors', 'img', 'user_rating', 'rating', 'votes'));
     }
 
     public function destroy($id)
@@ -78,5 +80,13 @@ class MoviesController extends Controller
         $movie = Movie::findOrFail($movie_id);
         $movie->actors()->detach($actor_id);
         return back();
+    }
+
+    public function showCast($id)
+    {
+        $movie = Movie::findOrFail($id);
+        $actors = $movie->actors;
+
+        return view('movies.cast', compact('movie', 'actors'));
     }
 }

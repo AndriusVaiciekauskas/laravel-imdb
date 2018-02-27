@@ -14,6 +14,7 @@ class CategoriesSeeder extends Seeder
     public $movie_id = [];
     public $movies = [];
     public $actors = [];
+    public $act;
 
     /**
      * Run the database seeds.
@@ -42,10 +43,9 @@ class CategoriesSeeder extends Seeder
         }
 
         // movies
-        $i = 1;
-        foreach ($category_id as $id) {
+        for ($i = 0; $i < count($category_id); $i++) {
             $client1 = new Client();
-            $res1 = $client1->request('GET', 'https://api.themoviedb.org/3/genre/'.$id.'/movies?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+            $res1 = $client1->request('GET', 'https://api.themoviedb.org/3/genre/'.$category_id[$i].'/movies?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
             $result1 = $res1->getBody()->getContents();
             $r1 = json_decode($result1);
             $movies = $r1->results;
@@ -56,9 +56,9 @@ class CategoriesSeeder extends Seeder
                     $mov = Movie::create([
                         'name' => $movie->title,
                         'description' => $movie->overview,
-                        'year' => Carbon::createFromFormat('Y-m-d', $movie->release_date)->year,
+                        'release_date' => $movie->release_date,
                         'user_id' => 1,
-                        'category_id' => $i,
+                        'category_id' => $i+1,
                     ]);
 
                     // add to images
@@ -75,16 +75,12 @@ class CategoriesSeeder extends Seeder
                     $this->movie_id[] = $movie->id;
                 }
             }
-            $i++;
         }
 
-        $movies = array_unique($this->movie_id);
-
         // actors
-        $j = 1;
-        foreach ($movies as $movie) {
+        for ($j = 0; $j < count($this->movie_id); $j++) {
             $client2 = new Client();
-            $res2 = $client2->request('GET', 'https://api.themoviedb.org/3/movie/'.$movie.'/credits?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+            $res2 = $client2->request('GET', 'https://api.themoviedb.org/3/movie/'.$this->movie_id[$j].'/credits?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
             $result2 = $res2->getBody()->getContents();
             $a = json_decode($result2);
             $actors = $a->cast;
@@ -93,7 +89,7 @@ class CategoriesSeeder extends Seeder
                 if (!in_array($actor->name, $this->actors)) {
                     $this->actors[] = $actor->name;
 
-                    $act = Actor::create([
+                    $this->act = Actor::create([
                         'name' => $actor->name,
                         'birthday' => null,
                         'user_id' => 1,
@@ -106,13 +102,13 @@ class CategoriesSeeder extends Seeder
                         ]);
 
                         // add to imagables
-                        $act->images()->create(['image_id' => $img->id, 'featured' => 1]);
+                        $this->act->images()->create(['image_id' => $img->id, 'featured' => 1]);
                     }
-
-                $act->movies()->sync($j);
+                    $this->act->movies()->sync($j+1);
+                } else {
+                    $this->act->movies()->sync($j+1);
                 }
             }
-            $j++;
         }
     }
 }

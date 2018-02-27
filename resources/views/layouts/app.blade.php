@@ -42,6 +42,7 @@
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                            <li><a title="Login with Facebook" class="nav-link fb-icon" href="{{ route('facebook.redirect') }}"><i class="fa fa-2x fa-facebook-square"></i></a></li>
                         @else
                             @if(Auth::user()->role == 'Admin')
                                     <li><a class="nav-link" href="{{ route('admin.movies') }}">Admin</a></li>
@@ -75,5 +76,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            if (window.location.href.indexOf('#_=_') > 0) {
+                window.location = window.location.href.replace(/#.*/, '');
+            }
+        });
+    </script>
 </body>
 </html>

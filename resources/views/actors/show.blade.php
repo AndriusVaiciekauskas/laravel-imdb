@@ -18,11 +18,7 @@
                             @foreach($img as $image)
                                 <div class="col-sm-3">
                                     @if ($image != null)
-                                        @if(strpos($image->filename, 'https') !== false)
-                                            <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->filename }}" alt="actor image">
-                                        @else
-                                            <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ asset('storage/images/' . $image->filename) }}" alt="actor image">
-                                        @endif
+                                        <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->small_image }}" alt="actor image">
                                     @endif
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                         <form action="{{ route('delete.image', ['image_id' => $image->id, 'actor_id' => $actor->id]) }}" method="post">

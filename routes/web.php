@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('main');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['admin']], function () {
@@ -74,8 +74,8 @@ Route::get('movies/top', 'RatingsController@get_top')->name('movies.top');
 Route::get('/categories', 'CategoriesController@index')->name('categories');
 Route::get('/categories/{id}', 'CategoriesController@show')->name('categories.show');
 
-
 // movies
+Route::get('/movies/{id}/cast', 'MoviesController@showCast')->name('movies.cast');
 Route::get('/movies/{id}', 'MoviesController@show')->name('movies.show');
 
 // actors
@@ -87,3 +87,7 @@ Route::post('/', 'SearchController@search')->name('search');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// facebook
+Route::get('/fb/login', 'FacebookController@redirect')->name('facebook.redirect')->middleware('guest');
+Route::get('/fb/callback', 'FacebookController@callback')->name('facebook.callback')->middleware('guest');
