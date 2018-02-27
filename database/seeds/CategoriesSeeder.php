@@ -16,21 +16,20 @@ class CategoriesSeeder extends Seeder
     public $actors = [];
     public $act;
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function getData($url)
+    {
+        $client = new Client();
+        $res = $client->request('GET', $url);
+        $result = $res->getBody()->getContents();
+        return json_decode($result);
+    }
+
+    public function seedCategories()
     {
         $faker = Faker\Factory::create();
 
-        // genres
-        $client = new Client();
-        $res = $client->request('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
-        $result = $res->getBody()->getContents();
-        $r = json_decode($result);
-        $categories = $r->genres;
+        $res1 = $this->getData('https://api.themoviedb.org/3/genre/movie/list?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+        $categories = $res1->genres;
 
         foreach ($categories as $category) {
             Category::create([
@@ -39,16 +38,16 @@ class CategoriesSeeder extends Seeder
                 'user_id' => 1
             ]);
 
-            $category_id[] = $category->id;
+            $this->category_id[] = $category->id;
         }
+    }
 
-        // movies
-        for ($i = 0; $i < count($category_id); $i++) {
-            $client1 = new Client();
-            $res1 = $client1->request('GET', 'https://api.themoviedb.org/3/genre/'.$category_id[$i].'/movies?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
-            $result1 = $res1->getBody()->getContents();
-            $r1 = json_decode($result1);
-            $movies = $r1->results;
+    public function seedMovies()
+    {
+        for ($i = 0; $i < count($this->category_id); $i++) {
+            $res2 = $this->getData('https://api.themoviedb.org/3/genre/'.$this->category_id[$i].'/movies?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+            $movies = $res2->results;
+
             foreach ($movies as $movie) {
                 if (!in_array($movie->title, $this->movies)) {
                     $this->movies[] = $movie->title;
@@ -76,22 +75,29 @@ class CategoriesSeeder extends Seeder
                 }
             }
         }
+    }
 
-        // actors
+    public function seedActors()
+    {
         for ($j = 0; $j < count($this->movie_id); $j++) {
-            $client2 = new Client();
-            $res2 = $client2->request('GET', 'https://api.themoviedb.org/3/movie/'.$this->movie_id[$j].'/credits?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
-            $result2 = $res2->getBody()->getContents();
-            $a = json_decode($result2);
-            $actors = $a->cast;
+            $res3 = $this->getData('https://api.themoviedb.org/3/movie/'.$this->movie_id[$j].'/credits?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+            $actors = $res3->cast;
 
             foreach ($actors as $actor) {
                 if (!in_array($actor->name, $this->actors)) {
+                    $a = $this->getData('https://api.themoviedb.org/3/person/'.$actor->id.'?api_key=8cf0aeb07b445e3a86becf98f0e14a9c');
+
+                    if (!isset($a->birthday) || count(explode('-', $a->birthday)) != 3) {
+                        $bday = null;
+                    } else {
+                        $bday = $a->birthday;
+                    }
+
                     $this->actors[] = $actor->name;
 
                     $this->act = Actor::create([
                         'name' => $actor->name,
-                        'birthday' => null,
+                        'birthday' => $bday,
                         'user_id' => 1,
                     ]);
 
@@ -110,5 +116,17 @@ class CategoriesSeeder extends Seeder
                 }
             }
         }
+    }
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->seedCategories();
+        $this->seedMovies();
+        $this->seedActors();
     }
 }
