@@ -24,6 +24,28 @@ class CategoriesSeeder extends Seeder
         return json_decode($result);
     }
 
+    public function add_movie_images($movie, $mov)
+    {
+        $file = Image::create([
+            'filename' => 'https://image.tmdb.org/t/p/w500' . $movie->poster_path,
+            'user_id' => 1,
+        ]);
+
+        // add to imagables
+        $mov->images()->create(['image_id' => $file->id, 'featured' => 1]);
+    }
+
+    public function add_actor_images($actor)
+    {
+        $img = Image::create([
+            'filename' => 'https://image.tmdb.org/t/p/w500' . $actor->profile_path,
+            'user_id' => 1,
+        ]);
+
+        // add to imagables
+        $this->act->images()->create(['image_id' => $img->id, 'featured' => 1]);
+    }
+
     public function seedCategories()
     {
         $faker = Faker\Factory::create();
@@ -62,13 +84,7 @@ class CategoriesSeeder extends Seeder
 
                     // add to images
                     if ($movie->poster_path !== null) {
-                        $file = Image::create([
-                            'filename' => 'https://image.tmdb.org/t/p/w500' . $movie->poster_path,
-                            'user_id' => 1,
-                        ]);
-
-                        // add to imagables
-                        $mov->images()->create(['image_id' => $file->id, 'featured' => 1]);
+                        $this->add_movie_images($movie, $mov);
                     }
 
                     $this->movie_id[] = $movie->id;
@@ -102,14 +118,9 @@ class CategoriesSeeder extends Seeder
                     ]);
 
                     if ($actor->profile_path !== null) {
-                        $img = Image::create([
-                            'filename' => 'https://image.tmdb.org/t/p/w500' . $actor->profile_path,
-                            'user_id' => 1,
-                        ]);
-
-                        // add to imagables
-                        $this->act->images()->create(['image_id' => $img->id, 'featured' => 1]);
+                        $this->add_actor_images($actor);
                     }
+
                     $this->act->movies()->sync($j+1);
                 } else {
                     $this->act->movies()->sync($j+1);

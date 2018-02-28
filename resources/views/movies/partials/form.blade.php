@@ -9,9 +9,9 @@
     <input type="text" name="description" class="form-control" value="{{ old('description', $description) }}">
 </div>
 <div class="form-group">
-    <label>Year</label>
-    @include('movies.partials.errors', ['name' => 'year'])
-    <input type="number" name="year" class="form-control" value="{{ old('year', $year) }}">
+    <label>Release date</label>
+    @include('movies.partials.errors', ['name' => 'release_date'])
+    <input type="date" name="release_date" class="form-control" value="{{ old('release_date', $release_date) }}">
 </div>
 <div class="form-group">
     <label>Category</label>

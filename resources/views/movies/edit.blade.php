@@ -11,7 +11,7 @@
                     @include('movies.partials.form', [
                         'name' => $movie->name,
                         'description' => $movie->description,
-                        'year' => $movie->year,
+                        'release_date' => $movie->release_date,
                         'rating' => $movie->rating,
                         'category' => $movie->category_id
                      ])

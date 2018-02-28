@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         if (Auth::user()->role != 'Admin') {
-            return back()->with('errors', 'You are not authorized.');
+            return back();
         }
 
         return $next($request);

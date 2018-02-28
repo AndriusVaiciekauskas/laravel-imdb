@@ -40,7 +40,7 @@ class ActorsController extends Controller
         $actor->update($request->except('_token', 'movies') + ['user_id' => Auth::user()->id]);
         $actor->movies()->sync($request->input('movies'));
 
-        return redirect()->route('actors.show', $id);
+        return redirect()->route('actors.show', $id)->with('success', 'Actor edited successfully.');
     }
 
     public function show($id)
@@ -54,7 +54,7 @@ class ActorsController extends Controller
             array_push($img, $image->image);
         }
 
-        return view('actors.show', compact('actor', 'movies', 'img', 'featured_image'));
+        return view('actors.show', compact('actor', 'movies', 'img'));
     }
 
     public function destroy($id)
@@ -62,13 +62,21 @@ class ActorsController extends Controller
         $actor = Actor::findOrFail($id);
         $actor->movies()->detach();
         $actor->delete();
-        return redirect()->back()->with('success', 'Actor successfuly delete.');
+        return redirect()->back()->with('success', 'Actor deleted successfully.');
     }
 
     public function detachMovie($movie_id, $actor_id)
     {
         $actor = Actor::findOrFail($actor_id);
         $actor->movies()->detach($movie_id);
-        return back();
+        return back()->with('success', 'Movie detached successfully.');
+    }
+
+    public function showImages($id)
+    {
+        $actor = Actor::findOrFail($id);
+        $images = $actor->images;
+
+        return view('actors.images', compact('images', 'actor'));
     }
 }

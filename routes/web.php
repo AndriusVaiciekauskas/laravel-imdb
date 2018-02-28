@@ -76,10 +76,12 @@ Route::get('/categories/{id}', 'CategoriesController@show')->name('categories.sh
 
 // movies
 Route::get('/movies/{id}/cast', 'MoviesController@showCast')->name('movies.cast');
+Route::get('/movies/{id}/images', 'MoviesController@showImages')->name('movies.images');
 Route::get('/movies/{id}', 'MoviesController@show')->name('movies.show');
 
 // actors
 Route::get('/actors/{id}', 'ActorsController@show')->name('actors.show');
+Route::get('/actors/{id}/images', 'ActorsController@showImages')->name('actors.images');
 
 // search
 Route::post('/', 'SearchController@search')->name('search');

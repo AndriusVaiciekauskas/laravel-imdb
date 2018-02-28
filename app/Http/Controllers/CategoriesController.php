@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actor;
 use App\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
@@ -45,7 +46,24 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
-        return view('categories.show', compact('category'));
+        $movies = $category->movies;
+
+        foreach ($movies as $movie) {
+            $actors_ids[] = $movie->actors()->pluck('id');
+        }
+
+        $collection = collect($actors_ids);
+        $flatened = $collection->flatten();
+        $occurences = array_count_values($flatened->toArray());
+        arsort($occurences);
+
+        $sliced = array_slice($occurences, 0, 3, true);
+
+        foreach ($sliced as $key => $value) {
+            $actors[] = Actor::findOrFail($key);
+        }
+
+        return view('categories.show', compact('category', 'actors'));
     }
 
     public function destroy($id)

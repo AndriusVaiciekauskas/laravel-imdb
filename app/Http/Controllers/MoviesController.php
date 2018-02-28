@@ -43,7 +43,7 @@ class MoviesController extends Controller
         $movie->update($request->except('_token') + ['user_id' => Auth::user()->id]);
         $movie->actors()->sync($request->input('actors'));
 
-        return redirect()->route('movies.show', $id);
+        return redirect()->route('movies.show', $id)->with('success', 'Movie has updated successfully.');
     }
 
     public function show($id)
@@ -51,35 +51,28 @@ class MoviesController extends Controller
         $movie = Movie::findOrFail($id);
         $actors = $movie->actors()->limit(10)->get();
         $images = $movie->images()->limit(4)->get();
-        $img = [];
+
         foreach ($images as $image) {
-            array_push($img, $image->image);
+            $img[] = $image->image;
         }
 
-        if (Auth::user() !== null) {
-            $user_rating = Auth::user()->ratings()->where('movie_id', $id)->first();
-        }
-
-        $votes = count(Rating::where('movie_id', $id)->get());
-
-        $rating = Rating::where('movie_id', $id)->avg('rating');
-        $rating = number_format($rating,1);
-        return view('movies.show', compact('movie', 'actors', 'img', 'user_rating', 'rating', 'votes'));
+        return view('movies.show', compact('movie', 'actors', 'img', 'user_rating'));
     }
 
     public function destroy($id)
     {
         $movie = Movie::findOrFail($id);
         $movie->actors()->detach();
+        $movie->ratings()->delete();
         $movie->delete();
-        return redirect()->back()->with('success', 'Movie has been delete successfuly.');
+        return redirect()->back()->with('success', 'Movie has been deleted successfully.');
     }
 
     public function detachActor($movie_id, $actor_id)
     {
         $movie = Movie::findOrFail($movie_id);
         $movie->actors()->detach($actor_id);
-        return back();
+        return back()->with('success', 'Actor has been detached successfully.');
     }
 
     public function showCast($id)
@@ -88,5 +81,13 @@ class MoviesController extends Controller
         $actors = $movie->actors;
 
         return view('movies.cast', compact('movie', 'actors'));
+    }
+
+    public function showImages($id)
+    {
+        $movie = Movie::findOrFail($id);
+        $images = $movie->images;
+
+        return view('movies.images', compact('images', 'movie'));
     }
 }

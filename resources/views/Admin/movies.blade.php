@@ -4,11 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                @if (session('errors'))
-                    <div class="alert alert-danger">
-                        {{ session('errors') }}
-                    </div>
-                @endif
+                @include('partials.success')
                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                     <div>
                         <a href="{{ route('movies.create') }}" class="btn btn-success pb-2">Add new movie</a>
@@ -24,7 +20,7 @@
                         <thead>
                         <tr>
                             <th>Movie</th>
-                            <th>Year</th>
+                            <th>Release date</th>
                             <th>Rating</th>
                             <th>Category</th>
                             @if(Auth::user() !== null && Auth::user()->role == 'Admin')
@@ -41,7 +37,7 @@
                                         {{ $movie->name }}
                                     </a>
                                 </td>
-                                <td>{{ $movie->year }}</td>
+                                <td>{{ $movie->release_date }}</td>
                                 <td>{{ number_format($movie->ratings->avg('rating'), 1) }}</td>
                                 <td>{{ $movie->category->name }}</td>
                                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')

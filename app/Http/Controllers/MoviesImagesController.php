@@ -35,7 +35,7 @@ class MoviesImagesController extends Controller
         $featured_image = $movie->images()->where('featured', 1);
         $featured_image->update(['featured' => 0]);
         $image->update(['featured' => 1]);
-        return back();
+        return back()->with('success', 'Featured image changes successfully.');
     }
 
     public function destroy($image_id, $movie_id)
@@ -52,6 +52,6 @@ class MoviesImagesController extends Controller
             $imagable->delete();
         }
 
-        return back();
+        return back()->with('success', 'Image deleted successfully.');
     }
 }

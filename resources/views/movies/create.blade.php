@@ -10,7 +10,7 @@
                     @include('movies.partials.form', [
                         'name' => '',
                         'description' => '',
-                        'year' => '',
+                        'release_date' => '',
                         'rating' => '',
                         'category' => ''
                      ])

@@ -36,7 +36,7 @@ class ImagesController extends Controller
         $featured_image = $actor->images()->where('featured', 1);
         $featured_image->update(['featured' => 0]);
         $image->update(['featured' => 1]);
-        return back();
+        return back()->with('success', 'Featured image changed successfully.');
     }
 
     public function destroy($image_id, $actor_id)
@@ -53,6 +53,6 @@ class ImagesController extends Controller
             $imagable->delete();
         }
 
-        return back();
+        return back()->with('success', 'Image deleted successfully.');
     }
 }

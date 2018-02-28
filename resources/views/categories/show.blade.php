@@ -20,6 +20,20 @@
                                 </li>
                             @endforeach
                         </ul>
+
+                        <hr>
+
+                        <h4 class="mt-4">Top actors in this category</h4>
+                        <ul class="list-group">
+                            @foreach($actors as $actor)
+                                <li class="list-group-item">
+                                    <a href="{{ route('actors.show', $actor->id) }}">
+                                        <img id="movie-img" class="img-fluid" img-fluid src="{{ $actor->featured_image }}" alt="actor image">
+                                        {{ $actor->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

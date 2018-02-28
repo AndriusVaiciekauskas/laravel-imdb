@@ -4,11 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                @if (session('errors'))
-                    <div class="alert alert-danger">
-                        {{ session('errors') }}
-                    </div>
-                @endif
+                @include('partials.success')
                 @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                     <div>
                         <a href="{{ route('actors.create') }}" class="btn btn-success">Add new actor</a>

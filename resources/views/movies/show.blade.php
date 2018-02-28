@@ -1,9 +1,13 @@
+@inject('voted', 'App\Services\HasVotedService')
 @extends('layouts.app')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-sm-10 mx-auto bg-dark text-white">
+                <div class="mt-4">
+                    @include('partials.success')
+                </div>
                 <div class="row mt-4">
                     <div class="col-sm-4">
                         <img class="img-fluid" src="{{ $movie->featured_image }}" alt="actor image">
@@ -12,21 +16,14 @@
                         <h2>
                             {{ $movie->name }}
                             <small>({{ $movie->year }})</small>
-                            @if(Auth::user() && $user_rating == null)
+                            @if(Auth::user() && !$voted->hasVoted(Auth::user(), $movie))
                                 <form class="form-inline float-right" action="{{ route('movies.rate', $movie->id) }}" method="post">
                                     {{ csrf_field() }}
                                     <div class="form-group input-group-sm mr-1">
                                         <select name="rating" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
+                                            @for($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -37,11 +34,11 @@
                         </h2>
                         <p>
                             <b>Rating:</b>
-                            @if($rating != 0)
+                            @if($movie->rating != 0)
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ $rating * 10 }}%" aria-valuenow="{{ $rating * 10 }}" aria-valuemin="0" aria-valuemax="100">{{ $rating }}</div>
+                                    <div class="progress-bar" role="progressbar" style="width: {{ $movie->rating * 10 }}%" aria-valuenow="{{ $movie->rating * 10 }}" aria-valuemin="0" aria-valuemax="100">{{ $movie->rating }}</div>
                                 </div>
-                                <small>Votes:({{ $votes }})</small>
+                                <small>Votes:({{ $movie->votes }})</small>
                             @else
                                 Not rated yet!
                             @endif
@@ -69,6 +66,9 @@
                                     @endif
                                 </div>
                             @endforeach
+                            @if(count($img) >= 4)
+                                <a class="btn-link" href="{{ route('movies.images', $movie->id) }}"><small>See all images</small></a>
+                            @endif
                         </div>
                         <div class="row">
                             <div class="col-sm-12">

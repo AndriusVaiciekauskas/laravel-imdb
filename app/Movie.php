@@ -37,9 +37,9 @@ class Movie extends Model
     protected $fillable = [
         'name',
         'description',
-        'year',
         'user_id',
-        'category_id'
+        'category_id',
+        'release_date'
     ];
 
     public function category()
@@ -81,5 +81,16 @@ class Movie extends Model
     public function getYearAttribute()
     {
         return Carbon::createFromFormat('Y-m-d', $this->release_date)->year;
+    }
+
+    public function getVotesAttribute()
+    {
+        return count(Rating::where('movie_id', $this->id)->get());
+    }
+
+    public function getRatingAttribute()
+    {
+        return number_format(Rating::where('movie_id', $this->id)->avg('rating'), 1);
+//        number_format($rating,1);
     }
 }

@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-10 mx-auto bg-dark text-white">
+                <div class="mt-4">
+                    @include('partials.success')
+                </div>
                 <div class="row mt-4">
                     <div class="col-sm-4">
                         <img class="img-fluid" img-fluid src="{{ $actor->featured_image }}" alt="actor image">
@@ -35,6 +38,9 @@
                                     @endif
                                 </div>
                             @endforeach
+                            @if(count($img) >= 4)
+                                <a class="btn-link" href="{{ route('actors.images', $actor->id) }}"><small>See all images</small></a>
+                            @endif
                         </div>
                         <div class="row">
                             <div class="col-sm-12">

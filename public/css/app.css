@@ -13227,6 +13227,10 @@ form .search-btn:hover {
   height: auto;
 }
 
+.alert-success {
+  color: #155724 !important;
+}
+
 .select2-container {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
