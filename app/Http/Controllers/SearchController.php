@@ -44,7 +44,10 @@ class SearchController extends Controller
 
     public function suggest(Request $request)
     {
-        $actors = Actor::where('name', 'like', '%' . $request->search . '%')->limit(20)->get();
-        return response()->json(['response' => $actors]);
+        $movies = Movie::where('name', 'like', '%' . $request->search . '%')->limit(10)->get();
+        $actors = Actor::where('name', 'like', '%' . $request->search . '%')->limit(10)->get();
+        $merged = $movies->merge($actors);
+        return response()->json(['response' => $merged]);
+
     }
 }

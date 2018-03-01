@@ -28,11 +28,24 @@ $(document).ready(()=> {
     $('.actors-select').select2();
 
     $(".search").keyup(function() {
-        if ($(".search").val().length >= 3) {
-            $.post('/', function(){
-                console.log('response');
-            });
-
+        if ($(".search").val().length > 1) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: $("#route").val(),
+                data: { search: $(".search").val()},
+                success: function (results) {
+                    $("#suggestion").html("");
+                    $.each(results, function (i, result) {
+                        $.each(result, function (j, data) {
+                            $("#suggestion").append('<li><a href="/actors/'+data.id+'">'+data.name+'</a></li>');
+                            console.log(data);
+                        })
+                    })
+                }
+            })
         }
     });
 });
