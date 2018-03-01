@@ -45,6 +45,11 @@ class Actor extends Model
         return $this->morphMany(Imagable::class, 'imagable');
     }
 
+    public function visits()
+    {
+        return $this->morphMany(Visit::class, 'visitable');
+    }
+
     public function getFeaturedImageAttribute()
     {
         $featured_image = $this->images()->where('featured', 1)->first();

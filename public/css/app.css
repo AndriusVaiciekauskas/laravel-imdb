@@ -13147,7 +13147,7 @@ p {
 
 #image-front {
   width: 100%;
-  height: 40vh;
+  height: 30vh;
   margin-top: 15px;
   margin-bottom: 15px;
   opacity: .7;
@@ -13229,6 +13229,10 @@ form .search-btn:hover {
 
 .alert-success {
   color: #155724 !important;
+}
+
+.popular {
+  background-color: #dedede;
 }
 
 .select2-container {

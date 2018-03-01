@@ -7,6 +7,8 @@ use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
 use App\Image;
 use App\Movie;
+use App\Services\VisitService;
+use App\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,10 +45,12 @@ class ActorsController extends Controller
         return redirect()->route('actors.show', $id)->with('success', 'Actor edited successfully.');
     }
 
-    public function show($id)
+    public function show($id, VisitService $visit)
     {
         /** @var Actor $actor */
         $actor = Actor::findOrFail($id);
+        $visit->count($actor, $id);
+
         $movies = $actor->movies;
         $images = $actor->images()->limit(4)->get();
         $img = [];

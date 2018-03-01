@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-12 card bg-dark">
+            <div class="col-sm-9 card bg-dark">
                 <h2 class="text-white">Latest movies</h2>
                 <div class="row">
                     @foreach($movies as $movie)
@@ -19,6 +19,21 @@
                         <a class="badge badge-secondary mb-3" href="{{ route('categories') }}">See more</a>
                     </div>
                 </div>
+            </div>
+            <div class="col-sm-3 card popular">
+                <h5 class="mt-3">Popular movies</h5>
+                <ul class="list-unstyled">
+                    @foreach($popular_movies as $movie)
+                        <li><a href="{{ route('movies.show', $movie->id) }}">{{ $movie->name }}</a></li>
+                    @endforeach
+                </ul>
+                <hr>
+                <h5 class="mt-3">Popular actors</h5>
+                <ul class="list-unstyled">
+                    @foreach($popular_actors as $actor)
+                        <li><a href="{{ route('actors.show', $actor->id) }}">{{ $actor->name }}</a></li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </div>

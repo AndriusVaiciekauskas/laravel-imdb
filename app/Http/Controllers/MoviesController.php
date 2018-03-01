@@ -8,6 +8,7 @@ use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Movie;
 use App\Rating;
+use App\Services\VisitService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,9 +47,11 @@ class MoviesController extends Controller
         return redirect()->route('movies.show', $id)->with('success', 'Movie has updated successfully.');
     }
 
-    public function show($id)
+    public function show($id, VisitService $visit)
     {
         $movie = Movie::findOrFail($id);
+        $visit->count($movie);
+
         $actors = $movie->actors()->limit(10)->get();
         $images = $movie->images()->limit(4)->get();
 

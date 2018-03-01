@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actor;
 use App\Movie;
+use App\Visit;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,7 +26,20 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $related_movies = Visit::where('visitable_type', 'App\Movie')->orderBy('visit_count', 'desc')->limit(10)->get();
+        $related_actors = Visit::where('visitable_type', 'App\Actor')->orderBy('visit_count', 'desc')->limit(10)->get();
+
+        $popular_movies = collect();
+        foreach ($related_movies as $movie) {
+            $popular_movies->push($movie->related);
+        }
+
+        $popular_actors = collect();
+        foreach ($related_actors as $actor) {
+            $popular_actors->push($actor->related);
+        }
+
         $movies = Movie::orderBy('release_date', 'desc')->take(12)->get();
-        return view('welcome', compact('movies'));
+        return view('welcome', compact('movies', 'popular_movies', 'popular_actors'));
     }
 }
