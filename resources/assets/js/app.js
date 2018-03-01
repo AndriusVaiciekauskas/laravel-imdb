@@ -26,7 +26,18 @@ require('select2');
 $(document).ready(()=> {
     $('.movies-select').select2();
     $('.actors-select').select2();
+
+    $(".search").keyup(function() {
+        if ($(".search").val().length >= 3) {
+            $.post('/', function(){
+                console.log('response');
+            });
+
+        }
+    });
 });
+
+
 
 
 

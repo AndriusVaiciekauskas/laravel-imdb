@@ -41,4 +41,10 @@ class SearchController extends Controller
 
         return view('search.actors', compact('actors'));
     }
+
+    public function suggest(Request $request)
+    {
+        $actors = Actor::where('name', 'like', '%' . $request->search . '%')->limit(20)->get();
+        return response()->json(['response' => $actors]);
+    }
 }

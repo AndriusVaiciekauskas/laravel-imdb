@@ -26,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $res = response()->json(['response' => 'This is get method']);
+
         $related_movies = Visit::where('visitable_type', 'App\Movie')->orderBy('visit_count', 'desc')->limit(10)->get();
         $related_actors = Visit::where('visitable_type', 'App\Actor')->orderBy('visit_count', 'desc')->limit(10)->get();
 
@@ -40,6 +42,6 @@ class HomeController extends Controller
         }
 
         $movies = Movie::orderBy('release_date', 'desc')->take(12)->get();
-        return view('welcome', compact('movies', 'popular_movies', 'popular_actors'));
+        return view('welcome', compact('movies', 'popular_movies', 'popular_actors', 'res'));
     }
 }

@@ -13623,8 +13623,16 @@ __webpack_require__(36);
 // });
 
 $(document).ready(function () {
-  $('.movies-select').select2();
-  $('.actors-select').select2();
+    $('.movies-select').select2();
+    $('.actors-select').select2();
+
+    $(".search").keyup(function () {
+        if ($(".search").val().length >= 3) {
+            $.post('/', function () {
+                console.log('response');
+            });
+        }
+    });
 });
 
 /***/ }),

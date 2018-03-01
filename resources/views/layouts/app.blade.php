@@ -31,7 +31,7 @@
                         <li><a class="nav-link" href="{{ route('categories') }}">Categories</a></li>
                         <form class="form-inline" action="{{ route('search') }}" method="post">
                             {{ csrf_field() }}
-                            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control mr-sm-2 search" type="text" name="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </ul>
