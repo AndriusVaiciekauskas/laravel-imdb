@@ -33,6 +33,9 @@ $(document).ready(()=> {
 
     $(".search").keyup(function() {
         if ($(".search").val().length > 1) {
+            $(".search").focusin(function() {
+                $('#suggestion').show();
+            });
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
