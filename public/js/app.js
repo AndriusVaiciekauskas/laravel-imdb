@@ -13627,7 +13627,9 @@ $(document).ready(function () {
     $('.actors-select').select2();
 
     $(".search").focusout(function () {
-        $('#suggestion').hide();
+        setTimeout(function () {
+            $('#suggestion').hide();
+        }, 500);
     });
 
     $(".search").keyup(function () {
