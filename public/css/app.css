@@ -13256,7 +13256,7 @@ form .search-btn:hover {
   height: 40px;
 }
 
-@media only screen and (max-width: 370px) {
+@media only screen and (max-width: 450px) {
   #suggestion {
     z-index: 9999;
     position: absolute;
