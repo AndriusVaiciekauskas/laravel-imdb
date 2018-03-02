@@ -49,7 +49,7 @@
                         <h4>Photos</h4>
                         <div class="row">
                             @foreach($img as $image)
-                                <div class="col-sm-3">
+                                <div class="col-6 col-sm-3">
                                     <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->small_image }}" alt="actor image">
                                     @if(Auth::user() !== null && Auth::user()->role == 'Admin')
                                         <form action="{{ route('delete.image.movie', ['image_id' => $image->id, 'movie_id' => $movie->id]) }}" method="post">
