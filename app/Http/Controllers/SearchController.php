@@ -46,6 +46,16 @@ class SearchController extends Controller
     {
         $movies = Movie::where('name', 'like', '%' . $request->search . '%')->limit(10)->get();
         $actors = Actor::where('name', 'like', '%' . $request->search . '%')->limit(10)->get();
+
+        $movies->map(function ($movie) {
+            $movie['url'] = route('movies.show', $movie->id);
+            $movie['image'] = $movie->featured_image;
+        });
+        $actors->map(function ($actor) {
+            $actor['url'] = route('actors.show', $actor->id);
+            $actor['image'] = $actor->featured_image;
+        });
+
         $merged = $movies->merge($actors);
         return response()->json(['response' => $merged]);
 

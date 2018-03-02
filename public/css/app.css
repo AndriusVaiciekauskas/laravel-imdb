@@ -13235,6 +13235,11 @@ form .search-btn:hover {
   background-color: #dedede;
 }
 
+#suggestion li:hover {
+  background-color: #d3d9df;
+  color: #444444 !important;
+}
+
 .select2-container {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

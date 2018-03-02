@@ -13637,15 +13637,17 @@ $(document).ready(function () {
                 data: { search: $(".search").val() },
                 success: function success(results) {
                     $("#suggestion").html("");
-                    // console.log(results);
+                    $("#suggestion").show();
                     $.each(results, function (i, result) {
                         $.each(result, function (j, data) {
-                            $("#suggestion").append('<li><a href="/actors/' + data.id + '">' + data.name + '</a></li>');
+                            $("#suggestion").append('<a href="' + data.url + '"><li><img style="width: 30px; height: 40px;" src="' + data.image + '"/>' + data.name + '</li></a>');
                             console.log(data);
                         });
                     });
                 }
             });
+        } else {
+            $("#suggestion").hide();
         }
     });
 });

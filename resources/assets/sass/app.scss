@@ -170,4 +170,11 @@ form .search-btn {
   background-color: #dedede;
 }
 
+#suggestion li {
+  &:hover {
+    background-color: #d3d9df;
+    color: #444444 !important;
+  }
+}
+
 @import "~select2/src/scss/core.scss";
