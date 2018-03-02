@@ -13256,6 +13256,19 @@ form .search-btn:hover {
   height: 40px;
 }
 
+@media only screen and (max-width: 370px) {
+  #suggestion {
+    z-index: 9999;
+    position: absolute;
+    width: 200px !important;
+    display: none;
+  }
+
+  .search {
+    width: 200px !important;
+  }
+}
+
 .select2-container {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

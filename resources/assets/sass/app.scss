@@ -193,4 +193,17 @@ form .search-btn {
   height: 40px;
 }
 
+@media only screen and (max-width : 370px) {
+  #suggestion {
+    z-index: 9999;
+    position: absolute;
+    width: 200px !important;
+    display: none;
+  }
+
+  .search {
+    width: 200px !important;
+  }
+}
+
 @import "~select2/src/scss/core.scss";
