@@ -25,7 +25,7 @@
 
                         <h4 class="mt-4">Top actors in this category</h4>
                         <ul class="list-group">
-                            @if ($actors !== null)
+                            @if (isset($actors))
                                 @foreach($actors as $actor)
                                     <li class="list-group-item">
                                         <a href="{{ route('actors.show', $actor->id) }}">
