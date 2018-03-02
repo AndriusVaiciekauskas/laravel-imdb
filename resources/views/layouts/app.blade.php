@@ -33,10 +33,10 @@
                             {{ csrf_field() }}
                             <div class="form-inline">
                                 <input type="hidden" id="route" name="route" value="{{ route('suggest') }}">
-                                <input style="width: 400px" class="form-control mr-sm-2 search" type="text" name="search" placeholder="Search" aria-label="Search" autocomplete="off">
+                                <input class="form-control mr-sm-2 search" type="text" name="search" placeholder="Search" aria-label="Search" autocomplete="off">
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </div>
-                            <ul style="z-index: 9999; position: absolute; width: 400px; display: none" class="list-unstyled card" id="suggestion"></ul>
+                            <ul class="list-unstyled card" id="suggestion"></ul>
                         </form>
                     </ul>
 

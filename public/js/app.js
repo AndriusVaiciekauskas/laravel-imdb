@@ -13626,6 +13626,10 @@ $(document).ready(function () {
     $('.movies-select').select2();
     $('.actors-select').select2();
 
+    $(".search").focusout(function () {
+        $('#suggestion').hide();
+    });
+
     $(".search").keyup(function () {
         if ($(".search").val().length > 1) {
             $.ajax({
@@ -13640,7 +13644,7 @@ $(document).ready(function () {
                     $("#suggestion").show();
                     $.each(results, function (i, result) {
                         $.each(result, function (j, data) {
-                            $("#suggestion").append('<a href="' + data.url + '"><li><img style="width: 30px; height: 40px;" src="' + data.image + '"/>' + data.name + '</li></a>');
+                            $("#suggestion").append('<a href="' + data.url + '"><li><img id="suggestion-img" src="' + data.image + '"/>' + data.name + '</li></a>');
                             console.log(data);
                         });
                     });
