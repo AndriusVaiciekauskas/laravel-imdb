@@ -29,14 +29,16 @@
                     <ul class="navbar-nav mr-auto">
                         <li><a class="nav-link" href="{{ route('movies.top') }}">Top movies</a></li>
                         <li><a class="nav-link" href="{{ route('categories') }}">Categories</a></li>
-                        <form class="form-inline" action="{{ route('search') }}" method="post">
+                        <form action="{{ route('search') }}" method="post">
                             {{ csrf_field() }}
-                            <input type="hidden" id="route" name="route" value="{{ route('suggest') }}">
-                            <input class="form-control mr-sm-2 search" type="text" name="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <div class="form-inline">
+                                <input type="hidden" id="route" name="route" value="{{ route('suggest') }}">
+                                <input class="form-control mr-sm-2 search" type="text" name="search" placeholder="Search" aria-label="Search" autocomplete="off">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </div>
+                            <ul class="list-unstyled card" id="suggestion"></ul>
                         </form>
                     </ul>
-                    <div style="z-index: 9999; position: absolute;" class="card" id="suggestion"></div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

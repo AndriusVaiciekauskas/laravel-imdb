@@ -19,7 +19,7 @@
                         <h4>Photos</h4>
                         <div class="row">
                             @foreach($img as $image)
-                                <div class="col-sm-3">
+                                <div class="col-6 col-sm-3">
                                     @if ($image != null)
                                         <img id="image-show" class="img-fluid img-thumbnail" img-fluid src="{{ $image->small_image }}" alt="actor image">
                                     @endif

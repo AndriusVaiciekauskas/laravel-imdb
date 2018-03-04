@@ -170,4 +170,40 @@ form .search-btn {
   background-color: #dedede;
 }
 
+#suggestion {
+  z-index: 9999;
+  position: absolute;
+  width: 400px;
+  display: none;
+}
+
+#suggestion li {
+  &:hover {
+    background-color: #d3d9df;
+    color: #444444 !important;
+  }
+}
+
+.search {
+  width: 400px !important;
+}
+
+#suggestion-img {
+  width: 30px;
+  height: 40px;
+}
+
+@media only screen and (max-width : 450px) {
+  #suggestion {
+    z-index: 9999;
+    position: absolute;
+    width: 200px !important;
+    display: none;
+  }
+
+  .search {
+    width: 200px !important;
+  }
+}
+
 @import "~select2/src/scss/core.scss";
