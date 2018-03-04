@@ -28,19 +28,4 @@ class AdminController extends Controller
 
         return view('admin.categories', compact('categories'));
     }
-
-    public function images()
-    {
-        $images = Image::paginate(24);
-
-        return view('admin.images', compact('images'));
-    }
-
-    public function destroy_image($id)
-    {
-        $image = Image::where('id', $id)->first();
-        $image->imagable()->delete();
-        $image->delete();
-        return back()->with('success', 'Image deleted successfully.');
-    }
 }

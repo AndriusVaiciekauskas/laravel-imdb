@@ -22,7 +22,8 @@ class MoviesSeeder extends Seeder
         for ($i = 1; $i <= count($categories); $i++) {
             // movies
             $client = new Client();
-            $res = $client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key=8cf0aeb07b445e3a86becf98f0e14a9c&page='.$i);
+            $res = $client->request('GET',
+                'https://api.themoviedb.org/3/movie/popular?api_key=8cf0aeb07b445e3a86becf98f0e14a9c&page=' . $i);
             $result = $res->getBody()->getContents();
             $r = json_decode($result);
             $movies = $r->results;

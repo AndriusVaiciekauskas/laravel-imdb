@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/actors/detach/{movie_id}/{actor_id}', 'ActorsController@detachMovie')->name('detach.movie');
 
         // images make featured
-        Route::patch('/actors/featured/{image_id}/{actor_id}', 'ImagesController@make_featured')->name('actors.featured');
+        Route::patch('/actors/featured/{image_id}/{actor_id}', 'ImagesController@makeFeatured')->name('actors.featured');
         Route::patch('/movies/featured/{image_id}/{movie_id}', 'MoviesImagesController@make_featured')->name('movies.featured');
         // images delete
         Route::delete('/actor/image/{image_id}/{actor_id}', 'ImagesController@destroy')->name('delete.image');

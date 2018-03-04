@@ -28,7 +28,7 @@ class ImagesController extends Controller
         return back();
     }
 
-    public function make_featured($image_id, $actor_id)
+    public function makeFeatured($image_id, $actor_id)
     {
         $actor = Actor::findOrFail($actor_id);
         $image = $actor->images()->where('image_id', $image_id);
@@ -41,7 +41,9 @@ class ImagesController extends Controller
 
     public function destroy($image_id, $actor_id)
     {
-        $imagable = Imagable::where('image_id', $image_id)->where('imagable_id', $actor_id)->where('imagable_type', 'App\Actor');
+        $imagable = Imagable::where('image_id', $image_id)
+            ->where('imagable_id', $actor_id)
+            ->where('imagable_type', 'App\Actor');
         $images = Imagable::where('image_id', $image_id)->get();
 
         if (count($images) == 1) {
