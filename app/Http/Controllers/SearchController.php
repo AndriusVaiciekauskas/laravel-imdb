@@ -58,6 +58,5 @@ class SearchController extends Controller
 
         $merged = $movies->merge($actors);
         return response()->json(['response' => $merged]);
-
     }
 }

@@ -16,7 +16,7 @@ class RatingsSeeder extends Seeder
         $movies = Movie::all();
 
         for ($i = 0; $i < 10000; $i++) {
-            for ($j = 0; $j < count($movies); $j = $j + mt_rand(1, 10) ){
+            for ($j = 0; $j < count($movies); $j = $j + mt_rand(1, 10)) {
                 Rating::create([
                     'movie_id' => $movies[$j]->id,
                     'user_id' => 1,

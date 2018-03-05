@@ -96,6 +96,5 @@ class Movie extends Model
     public function getRatingAttribute()
     {
         return number_format(Rating::where('movie_id', $this->id)->avg('rating'), 1);
-//        number_format($rating,1);
     }
 }

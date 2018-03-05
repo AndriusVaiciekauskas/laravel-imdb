@@ -17,6 +17,7 @@ class UpdateUserRequest extends FormRequest
         if (Auth::user()->role == 'Admin') {
             return true;
         }
+        return false;
     }
 
     /**

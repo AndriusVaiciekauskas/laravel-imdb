@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
         // images make featured
         Route::patch('/actors/featured/{image_id}/{actor_id}', 'ImagesController@makeFeatured')
             ->name('actors.featured');
-        Route::patch('/movies/featured/{image_id}/{movie_id}', 'MoviesImagesController@make_featured')
+        Route::patch('/movies/featured/{image_id}/{movie_id}', 'MoviesImagesController@makeFeatured')
             ->name('movies.featured');
         // images delete
         Route::delete('/actor/image/{image_id}/{actor_id}', 'ImagesController@destroy')->name('delete.image');
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 // top movies
-Route::get('movies/top', 'RatingsController@get_top')->name('movies.top');
+Route::get('movies/top', 'RatingsController@getTop')->name('movies.top');
 
 // categories
 Route::get('/categories', 'CategoriesController@index')->name('categories');

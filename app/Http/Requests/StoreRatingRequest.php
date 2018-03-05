@@ -14,11 +14,10 @@ class StoreRatingRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()){
+        if (Auth::user()) {
             return true;
         }
         return false;
-
     }
 
     /**

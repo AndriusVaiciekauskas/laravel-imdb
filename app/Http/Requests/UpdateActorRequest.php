@@ -17,6 +17,7 @@ class UpdateActorRequest extends FormRequest
         if (Auth::user()) {
             return true;
         }
+        return false;
     }
 
     /**

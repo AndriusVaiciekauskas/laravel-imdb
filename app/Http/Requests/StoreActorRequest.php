@@ -17,7 +17,7 @@ class StoreActorRequest extends FormRequest
         if (Auth::user()) {
             return true;
         }
-
+        return false;
     }
 
     /**

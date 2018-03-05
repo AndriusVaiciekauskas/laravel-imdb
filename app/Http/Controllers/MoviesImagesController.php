@@ -27,7 +27,7 @@ class MoviesImagesController extends Controller
         return back();
     }
 
-    public function make_featured($image_id, $movie_id)
+    public function makeFeatured($image_id, $movie_id)
     {
         $movie = Movie::findOrFail($movie_id);
         $image = $movie->images()->where('image_id', $image_id);
@@ -40,7 +40,9 @@ class MoviesImagesController extends Controller
 
     public function destroy($image_id, $movie_id)
     {
-        $imagable = Imagable::where('image_id', $image_id)->where('imagable_id', $movie_id)->where('imagable_type', 'App\Movie');
+        $imagable = Imagable::where('image_id', $image_id)
+            ->where('imagable_id', $movie_id)
+            ->where('imagable_type', 'App\Movie');
         $images = Imagable::where('image_id', $image_id)->get();
 
         if (count($images) == 1) {

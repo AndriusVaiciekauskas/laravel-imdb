@@ -26,7 +26,7 @@ class RatingsController extends Controller
         return back()->with('success', 'Thank you for your vote!');
     }
 
-    public function get_top()
+    public function getTop()
     {
         $movies = Movie::leftJoin('ratings', 'movies.id', '=', 'ratings.movie_id')
             ->selectRaw('round(avg(rating),1) as rating, movies.name, movies.id')

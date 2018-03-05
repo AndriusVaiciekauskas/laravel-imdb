@@ -13,11 +13,13 @@ class Rating extends Model
         'rating'
     ];
 
-    public function movies() {
+    public function movies()
+    {
         return $this->belongsTo(Movie::class);
     }
 
-    public function actors() {
+    public function actors()
+    {
         return $this->belongsTo(Actor::class);
     }
 }

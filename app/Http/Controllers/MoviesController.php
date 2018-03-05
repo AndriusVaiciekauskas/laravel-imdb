@@ -55,6 +55,7 @@ class MoviesController extends Controller
         $actors = $movie->actors()->limit(10)->get();
         $images = $movie->images()->limit(4)->get();
 
+        $img = [];
         foreach ($images as $image) {
             $img[] = $image->image;
         }
@@ -67,6 +68,7 @@ class MoviesController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->actors()->detach();
         $movie->ratings()->delete();
+        $movie->visits()->delete();
         $movie->delete();
         return redirect()->back()->with('success', 'Movie has been deleted successfully.');
     }

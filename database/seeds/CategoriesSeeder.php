@@ -24,7 +24,7 @@ class CategoriesSeeder extends Seeder
         return json_decode($result);
     }
 
-    public function add_movie_images($movie, $mov)
+    public function addMovieImages($movie, $mov)
     {
         $file = Image::create([
             'filename' => 'https://image.tmdb.org/t/p/w500' . $movie->poster_path,
@@ -35,7 +35,7 @@ class CategoriesSeeder extends Seeder
         $mov->images()->create(['image_id' => $file->id, 'featured' => 1]);
     }
 
-    public function add_actor_images($actor)
+    public function addActorImages($actor)
     {
         $img = Image::create([
             'filename' => 'https://image.tmdb.org/t/p/w500' . $actor->profile_path,
@@ -84,7 +84,7 @@ class CategoriesSeeder extends Seeder
 
                     // add to images
                     if ($movie->poster_path !== null) {
-                        $this->add_movie_images($movie, $mov);
+                        $this->addMovieImages($movie, $mov);
                     }
 
                     $this->movie_id[] = $movie->id;
@@ -118,7 +118,7 @@ class CategoriesSeeder extends Seeder
                     ]);
 
                     if ($actor->profile_path !== null) {
-                        $this->add_actor_images($actor);
+                        $this->addActorImages($actor);
                     }
 
                     $this->act->movies()->sync($j+1);

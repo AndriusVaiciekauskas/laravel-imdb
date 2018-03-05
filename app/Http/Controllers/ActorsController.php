@@ -65,6 +65,7 @@ class ActorsController extends Controller
     {
         $actor = Actor::findOrFail($id);
         $actor->movies()->detach();
+        $actor->visits()->delete();
         $actor->delete();
         return redirect()->back()->with('success', 'Actor deleted successfully.');
     }
